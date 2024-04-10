@@ -1,11 +1,9 @@
-import { useState } from 'react'
+import LoginPage from "./pages/LoginPage.jsx"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1 class="text-3xl font-bold underline">Hello World</h1>
+      <LoginPage></LoginPage>
     </>
   )
 }
