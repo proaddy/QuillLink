@@ -1,6 +1,6 @@
 import Button from "../components/Button.jsx";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <div className="flex items-center content-center flex-col w-full text-[#564cba]">
       <div className="bg-[#FFF4F4] flex w-[1000px] h-[650px]">
@@ -12,38 +12,33 @@ export default function LoginPage() {
           />
         </div>
 
-        {/* Login form */}
+        {/* Register form */}
         <div className="flex-1 flex flex-col items-center p-4">
           <p className="flex items-center self-start">
             <img src="/images/favicon.png" className="w-10 m-1" />
             <span className="text-2xl font-bold">QuillLink</span>
           </p>
-          <span className="uppercase text-3xl mt-12">hello again!</span>
-          <span className="mt-4">welcome back you have been missed</span>
+          <span className="uppercase text-3xl mt-12">let's get started!</span>
           <form action="" className="flex flex-col w-72 mt-10">
             <input
               type="text"
               placeholder="Enter Username"
               className="h-16 p-5 rounded-md"
             />
-            <div className="flex mt-4">
               <input
                 type="text"
-                placeholder="Enter Password"
-                className="h-16 p-5 rounded-tl-md rounded-bl-md"
+                placeholder="Email ID"
+                className="h-16 p-5 mt-4 rounded-md"
               />
-              <img
-                src="/images/show.png"
-                className="w-10 px-2 py-5 bg-white rounded-tr-md rounded-br-md"
+              <input
+                type="text"
+                placeholder="Password"
+                className="h-16 p-5 mt-4 mb-10 rounded-md"
               />
-            </div>
-            <a href="#" className="self-end my-2 mb-8 text-sm">
-              Forgot Password?
-            </a>
-            <Button text={"Sign In"} round="md" />
+            <Button text={"Sign Up"} round="md" />
           </form>
           <span className="mt-8 text-lg">
-            Doesn't have a account? <a href="#">Sign Up</a> for free
+            Already have a account? <a href="#">Sign In</a>
           </span>
         </div>
       </div>
