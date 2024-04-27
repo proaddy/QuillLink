@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../components/Button.jsx";
 
 export default function LoginPage() {
@@ -43,7 +44,7 @@ export default function LoginPage() {
             <Button text={"Sign In"} round="md" />
           </form>
           <span className="mt-8 text-lg">
-            Doesn't have a account? <a href="#">Sign Up</a> for free
+            Doesn't have a account? <Link to='/register'>Sign Up</Link> for free
           </span>
         </div>
       </div>
