@@ -23,23 +23,18 @@ export default function LeftComponent() {
           </p>
         </div>
         <hr className='bg-gray-200 border-solid w-[100%] h-1'/>
-        <div className="flex flex-col">
-          <div className='flex items-center'>
-            <img src="/images/greater-than.png" alt="greater-than" className='w-6 m-1 cursor-pointer'/>
-            <img src="/images/folder.png" alt="folder" className='w-6 m-1'/>
-            <span>My Notes</span>
+        <div className="flex flex-col h-screen justify-between">
+          <div className='flex-1'>
+            <div className='flex items-center'>
+              <img src="/images/folder.png" alt="folder" className='w-6 m-1'/>
+              <span>My Notes</span>
+            </div>
+            <div className="flex items-center">
+              <img src="/images/folder.png" alt="folder" className='w-6 m-1' />
+              <span>My Attachments</span>
+            </div>
           </div>
-          <div className="flex items-center pl-6">
-            <img src="/images/greater-than.png" alt="greater-than" className='w-6 m-1' />
-            <img src="/images/folder.png" alt="folder" className='w-6 m-1' />
-            <span>Imp Notes</span>
-          </div>
-          <div className="flex items-center">
-            <img src="/images/greater-than.png" alt="greater-than" className='w-6 m-1' />
-            <img src="/images/folder.png" alt="folder" className='w-6 m-1' />
-            <span>My Attachments</span>
-          </div>
-
+          <span className='flex-0 border-t-black text-center p-2 rounded-md h-10 bg-red-600'>Add Folder</span>
         </div>
     </div>
   )
