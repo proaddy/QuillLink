@@ -1,6 +1,4 @@
-import React from 'react'
-
-export default function LeftComponent() {
+export default function LeftComponent({pageStat, setPage}) {
   return (
     <div className='h-screen pt-2 flex flex-col items-center flex-[1_1_15%]'>
 
@@ -12,15 +10,15 @@ export default function LeftComponent() {
 
         {/* pages */}
         <div className='text-xl w-40 flex flex-col justify-center my-8'>
-          <p className='flex items-center'>
+          <p className={`flex items-center cursor-pointer ${pageStat === 'isHome' && 'bg-gray-100'} rounded-md`} onClick={()=>setPage('isHome')}>
             <img src="/images/home.png" className='w-6 m-3' alt="Home" />
             <span>Home</span>
           </p>
-          <p className='flex items-center'>
+          <p className={`flex items-center cursor-pointer ${pageStat === 'isArchive' && 'bg-gray-100'} rounded-md`} onClick={()=>setPage('isArchive')}>
             <img src="/images/archive.png" className='w-6 m-3' alt="Archive" />
             <span>Archive</span>
           </p>
-          <p className='flex items-center'>
+          <p className={`flex items-center cursor-pointer ${pageStat === 'isTrash' && 'bg-gray-100'} rounded-md`} onClick={()=>setPage('isTrash')}>
             <img src="/images/trash.png" className='w-6 m-3' alt="Trash" />
             <span>Trash</span>
           </p>

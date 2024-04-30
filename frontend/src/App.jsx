@@ -13,13 +13,10 @@ function App() {
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<RegisterPage/>}/>
           <Route path="/dashboard" element={<HomePage/>}/>
-          <Route path="*" element={
-            <h1>404 No such page found</h1>
-          }/>
+          <Route path="*" element={<h1>404 No such page found</h1>}/>
         </Routes>
       </BrowserRouter>
     </div>
   )
 }
-
 export default App

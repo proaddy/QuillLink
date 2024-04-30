@@ -1,35 +1,24 @@
-import React from 'react'
+import folders from '../folderlist.json';
 
 export default function Folders() {
   return (
-    <div className='overflow-auto max-h-full space-y-3'>
+    <div className='overflow-y-auto max-h-72 space-y-2'>
         <hr className='w-[100%] border-black h-1'/>
-        <div className="flex flex-wrap">
-            <span className='flex flex-col items-center bg-white rounded-md mr-5 py-2'>
-                <img src="/images/chapter.png" className='w-40 h-44'/>
-                Sub Folder
+        <div className="flex flex-wrap space-x-5">
+            {
+                folders.map(e=>{
+                    return(
+                        <span className='flex flex-col items-center rounded-md'>
+                            <img src="/images/chapter.png" className='w-40 h-44'/>
+                            {e.name}
+                        </span>
+                    )
+                })
+            }
+            <span className='flex flex-col items-center rounded-md m-2 py-2 w-44 h-52 justify-center outline-dashed'>
+                <img src="/images/add.png" className='w-16'/>
+                New Folder
             </span>
-            <span className='flex flex-col items-center bg-white rounded-md mr-5 py-2'>
-                <img src="/images/chapter.png" className='w-40 h-44'/>
-                Sub Folder
-            </span>
-            <span className='flex flex-col items-center bg-white rounded-md mr-5 py-2'>
-                <img src="/images/chapter.png" className='w-40 h-44'/>
-                Sub Folder
-            </span>
-            <span className='flex flex-col items-center bg-white rounded-md mr-5 py-2'>
-                <img src="/images/chapter.png" className='w-40 h-44'/>
-                Sub Folder
-            </span>
-            <span className='flex flex-col items-center bg-white rounded-md mr-5 py-2'>
-                <img src="/images/chapter.png" className='w-40 h-44'/>
-                Sub Folder
-            </span>
-            <span className='flex flex-col items-center bg-white rounded-md mr-5 py-2'>
-                <img src="/images/chapter.png" className='w-40 h-44'/>
-                Sub Folder
-            </span>
-            
         </div>
     </div>
   )
