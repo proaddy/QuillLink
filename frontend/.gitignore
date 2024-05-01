@@ -12,6 +12,7 @@ README.md
 dist
 dist-ssr
 *.local
+src/*.json
 
 # Editor directories and files
 .vscode/*

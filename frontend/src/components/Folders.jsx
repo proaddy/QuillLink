@@ -1,4 +1,4 @@
-import folders from '../folderlist.json';
+import folders from '../data/folderlist.json';
 
 export default function Folders() {
   return (

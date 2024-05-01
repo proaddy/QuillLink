@@ -1,4 +1,4 @@
-import testdata from '../testdata.json'
+import testdata from '../data/testdata.json'
 
 export default function Cards() {
   return (

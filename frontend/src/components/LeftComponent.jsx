@@ -1,3 +1,5 @@
+import bookdata from '../data/bookdata.json'
+
 export default function LeftComponent({pageStat, setPage}) {
   return (
     <div className='h-screen pt-2 flex flex-col items-center flex-[1_1_15%]'>
@@ -29,14 +31,14 @@ export default function LeftComponent({pageStat, setPage}) {
         {/* Book list */}
         <div className="flex flex-col h-screen justify-between">
           <div className='flex-1 p-1'>
-            <div className='flex items-center'>
-              <img src="/images/book.png" alt="book" className='w-6 m-2'/>
-              <span>My Notes</span>
-            </div>
-            <div className="flex items-center">
-              <img src="/images/book.png" alt="book" className='w-6 m-2' />
-              <span>My Attachments</span>
-            </div>
+            {
+              bookdata.map(e=>{ return (
+                <div className='flex items-center' key={e.name}>
+                  <img src="/images/book.png" alt="book" className='w-6 m-2'/>
+                  <span>{e.name}</span>
+                </div>
+              )})
+            }
           </div>
           <span className='flex-0 text-center p-2 mb-2 rounded-md h-10 bg-[#FFC900]'>Add Book</span>
         </div>

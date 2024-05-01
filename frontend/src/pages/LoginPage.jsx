@@ -1,15 +1,38 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import logindata from '../data/logindata.json';
+
 export default function LoginPage() {
 
   const [show, setShow] = useState('hide');
 
+  // input
+  const [uname, setUname] = useState('');
+  const [passw, setPassw] = useState('');
+
   const submitData = (e) => {
     e.preventDefault();
+    if(uname === '' || passw === '') {
+      alert("Username or Password cannot be empty")
+    } else if(passw.length < 8) {
+      alert("Password cannot be less than 8 characters")
+    } else {
+      if (uname.indexOf(' ') != -1 || passw.indexOf(' ') != -1) {
+        alert("Username or Password cannot have space")
+      } else {
+        const payload = Object.fromEntries(new FormData(e.target));
+        console.log(payload);
+        logindata.forEach(e=> {
+          if (e.uname === uname && e.passw === passw) {
+          alert("Login Successfull");
+          return;
+        }})
+      }
+    }
     
-    const payload = Object.fromEntries(new FormData(e.target));
-    console.log(payload);
+    setUname('');
+    setPassw('');
 
   } 
 
@@ -32,12 +55,15 @@ export default function LoginPage() {
           </p>
           <span className="uppercase text-3xl mt-12">hello again!</span>
           <span className="mt-4">welcome back you have been missed</span>
+          {/* form */}
           <form onSubmit={submitData} action="" className="flex flex-col w-72 mt-10">
             <input
               type="text"
               placeholder="Enter Username"
               className="h-16 p-5 rounded-md"
               name="uname"
+              value={uname}
+              onChange={(e)=>setUname(e.target.value)}
             />
             <div className="flex mt-4">
               <input
@@ -45,6 +71,8 @@ export default function LoginPage() {
                 placeholder="Enter Password"
                 className="h-16 p-5 rounded-tl-md rounded-bl-md"
                 name="password"
+                value={passw}
+                onChange={(e)=>setPassw(e.target.value)}
               />
               <img
                 src={`/images/${show}.png`}
