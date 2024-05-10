@@ -39,7 +39,7 @@ export default function RegisterPage() {
             <Button text={"Sign Up"} round="md" />
           </form>
           <span className="mt-8 text-lg">
-            Already have a account? <Link to='/login'>Sign In</Link>
+            Already have a account? <Link to='/login' className="font-bold">Sign In</Link>
           </span>
         </div>
       </div>

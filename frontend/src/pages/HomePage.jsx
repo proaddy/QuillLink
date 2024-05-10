@@ -6,12 +6,16 @@ import React, { useState } from 'react';
 
 export default function HomePage() {
   // isHome, isArchive, isTrash
-  const [pageStat, setPageStat] = useState('isHome')
+  const [pageStat, setPageStat] = useState('isHome');
+
+  // on different books
+  const [bookStat, setBookStat] = useState('');
 
   return (
     <div className="flex overflow-hidden">
-        <LeftComponent pageStat={pageStat} setPage={setPageStat}></LeftComponent>
-        <RightComponent pageStat={pageStat}></RightComponent>
+        <LeftComponent pageStat={pageStat} setPage={setPageStat} bookStat={bookStat} setBookStat={setBookStat}></LeftComponent>
+        
+        <RightComponent pageStat={pageStat} bookStat={bookStat}></RightComponent>
     </div>
   )
 }

@@ -1,30 +1,50 @@
 [
     {
         "name":"folder 1",
-        "location":"mynotes"
+        "location":"my notes"
     },
     {
         "name":"folder 2",
-        "location":"mynotes"
+        "location":"my notes/folder 1"
     },
     {
         "name":"folder 3",
-        "location":"mynotes"
+        "location":"my notes/folder 1/folder 2"
     },
     {
         "name":"folder 4",
-        "location":"mynotes"
+        "location":"my notes"
     },
     {
         "name":"folder 5",
-        "location":"mynotes"
+        "location":"my notes"
     },
     {
         "name":"folder 6",
-        "location":"mynotes"
+        "location":"my notes"
     },
     {
         "name":"folder 7",
-        "location":"mynotes"
+        "location":"my notes/folder 6"
+    },
+    {
+        "name":"folder 8",
+        "location":"project"
+    },
+    {
+        "name":"folder 9",
+        "location":"journal"
+    },
+    {
+        "name":"folder 10",
+        "location":"journal"
+    },
+    {
+        "name":"folder 11",
+        "location":"assignments"
+    },
+    {
+        "name":"folder 12",
+        "location":"project"
     }
 ]
