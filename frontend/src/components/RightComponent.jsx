@@ -1,13 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Cards from './Cards'
 import Folders from './Folders';
 
 export default function RightComponent({pageStat, bookStat}) {
-    const [folderStat, setFolderStat] = useState('folder 2');
-    const [activeFolder, setActiveFolder] = useState('');
-    const [activePath, setActivePath] = useState([]);
-    setActivePath([...bookStat])
-    console.log(activePath);
+    const [activePath, setActivePath] = useState(bookStat);
+    const [breadCrumPath, setBreadCrumPath] = useState([]);
+    let newActivePath = [`${bookStat}`];
+
+    useEffect(()=>{
+        setActivePath(bookStat);
+        setBreadCrumPath([]);
+    },[bookStat]);
+
+    console.log(bookStat)
+
+    // functions
+    const handlePath = (text)=>{
+        let index = breadCrumPath.indexOf(text);
+        if (text === bookStat) {
+            setBreadCrumPath([]);
+            setActivePath(`${bookStat}`)
+        }
+        if (index < 0) {
+            return;
+        }
+        let temp = breadCrumPath.slice(0, index + 1);
+        setBreadCrumPath(temp);
+        setActivePath(newActivePath.concat(temp).join('/')); // this line concats two arrays and make then string using join doesn't work if the data types are not array
+    }
     
   return (
     <div className='flex flex-col flex-[1_1_85%] bg-slate-400 p-2 overflow-hidden'>
@@ -33,14 +53,28 @@ export default function RightComponent({pageStat, bookStat}) {
                       </ul>
                   </div>
                     <ul className="flex list-none text-gray-600 my-1 space-x-1">
-                        <li className='after:content-["*"]'>{bookStat}</li>
-                        <li className='before:content-[">"]'>{folderStat}</li>
+                        {
+                            bookStat !== true && <>
+                                <li onClick={(e)=>handlePath(e.target.innerText)} className='hover:underline cursor-pointer'>{bookStat}</li>
+                                {
+                                    breadCrumPath.map(e=>{
+                                        return(
+                                            <>
+                                                <span>{'>'}</span>
+                                                <li onClick={(e)=>{handlePath(e.target.innerText)}} className='hover:underline cursor-pointer'>{e}</li>
+                                                </>
+                                        )
+                                    })
+                                }
+                            </>
+                        }
+                        
                     </ul>
                     {   
                         bookStat != '' && <>
-                            <Cards activePath={activePath} activeFolder={activeFolder}/>
+                            <Cards activePath={activePath}/>
                             <hr className='w-[100%] border-black h-1'/>
-                            <Folders bookStat={bookStat} activeFolder={activeFolder} setActiveFolder={setActiveFolder}/>
+                            <Folders activePath={activePath} setActivePath={setActivePath} breadCrumPath={breadCrumPath} setBreadCrumPath={setBreadCrumPath}/>
                         </>
                     }
                     

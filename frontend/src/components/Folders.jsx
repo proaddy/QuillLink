@@ -1,8 +1,12 @@
 import folders from '../data/folderlist.json';
 import { useState } from 'react';
 
-export default function Folders({bookStat, activeFolder, setActiveFolder}) {
+export default function Folders({activePath, setActivePath, breadCrumPath, setBreadCrumPath}) {
     const [testData, setTestData] = useState([...folders]);
+
+    // console.log(breadCrumPath);
+
+    // inputs
     const [showValue, setShowValue] = useState(false);
     const [newValue, setNewValue] = useState('');
 
@@ -19,7 +23,6 @@ export default function Folders({bookStat, activeFolder, setActiveFolder}) {
         setShowValue(!showValue);
     }
 
-    console.log(activeFolder);
   return (
     <div className='overflow-y-auto max-h-72'>
         {
@@ -29,9 +32,12 @@ export default function Folders({bookStat, activeFolder, setActiveFolder}) {
         }
         <div className="flex flex-wrap">
             {
-                testData.filter(e => e.location.split('/')[0] === bookStat.toLowerCase()).map(e=>{
+                testData.filter(e => e.location === activePath.toLowerCase()).map(e=>{
                     return(
-                        <span key={e.name} onClick={()=>setActiveFolder(e.name)} className='cursor-pointer flex flex-col items-center rounded-md m-1'>
+                        <span key={e.name} onClick={()=>{
+                                setActivePath(`${activePath+'/'+e.name.toLowerCase()}`);
+                                setBreadCrumPath([...breadCrumPath,e.name]);
+                            }} className='cursor-pointer flex flex-col items-center rounded-md m-1'>
                             <img src="/images/chapter.png" className='w-40 h-44'/>
                             {e.name}
                         </span>

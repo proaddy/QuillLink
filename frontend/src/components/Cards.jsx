@@ -4,11 +4,13 @@ import testdata from '../data/testdata.json';
 
 export default function Cards({activePath}) {
     const [testData, setTestData] = useState([...testdata]);
+
+    console.log(activePath);
     
   return (
     <div className='flex flex-wrap my-5 max-h-56 overflow-y-auto'>
         {
-            testData.filter(e=> e.location === activePath[0].toLowerCase()).map(e =>
+            testData.filter(e=> e.location === activePath.toLowerCase()).map(e =>
                 {
                     return(
                     <div className='bg-[#FFC900] text-white rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44'>
