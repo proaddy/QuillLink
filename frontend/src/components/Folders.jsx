@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 export default function Folders({activePath, setActivePath, breadCrumPath, setBreadCrumPath}) {
     const [testData, setTestData] = useState([...folders]);
+    // console.log(testData);
 
     // console.log(breadCrumPath);
 
@@ -13,9 +14,8 @@ export default function Folders({activePath, setActivePath, breadCrumPath, setBr
     const showdata = ()=>{
         setShowValue(!showValue);
         if(newValue != ''){
-            setTestData([...testData, {"name": newValue, "location":"mynotes"}]);
+            setTestData([...testData, {"name": newValue, "location":activePath.toLowerCase()}]);
         }
-        console.log(testData);
         setNewValue('');
     }
 

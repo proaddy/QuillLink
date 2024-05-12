@@ -96,14 +96,14 @@ export default function RightComponent({pageStat, bookStat}) {
                         <ul className="list-none text-gray-600 my-5">
                             <li className='font-bold'>Archives</li>
                         </ul>
-                        <Cards/>
+                        <Cards activePath={activePath}/>
                     </>
                 )
             }
             {
                 pageStat === 'isTrash' && (
                     <>
-                        <Cards/>
+                        <Cards activePath={activePath}/>
                     </>
                 )
             }

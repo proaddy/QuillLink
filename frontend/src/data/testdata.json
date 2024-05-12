@@ -3,42 +3,42 @@
         "heading":"Test note",
         "content":"this is just a content nothing much to it all the data is just being collected in the following manner that you are not ware of",
         "tag":"meeting",
-        "date":"29/04/2024",
+        "date":"29/4/2024",
         "location":"my notes/folder 1"
     },
     {
         "heading":"Client meeting review",
         "content":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tempore eius repellat autem dolorum consequuntur atque!",
         "tag":"meeting",
-        "date":"29/04/2024",
+        "date":"29/4/2024",
         "location":"my notes"
     },
     {
         "heading":"Jokes on how meeting went",
         "content":"The presentator was not able to spell gospel and keep saying go-fel because he swoollen wound on the lips",
         "tag":"meeting",
-        "date":"29/04/2024",
+        "date":"29/4/2024",
         "location":"my notes/folder 2"
     },
     {
         "heading":"Deadlines mentioned in the meeting",
         "content":"25 changes in the project and this month is the deadline, the project is just too huge and too buggy",
         "tag":"meeting",
-        "date":"29/04/2024",
+        "date":"29/4/2024",
         "location":"projects"
     },
     {
         "heading":"We went to battle royal playground event",
         "content":"We were assigned to do things on the event as we were the one to organie such event, many people came to the event and it was a massive success so much so that we have to call backup on the event day from our colleagues to help handle the crowd, whatever happened the event was a huge success and we are happy about.",
         "tag":"playground",
-        "date":"01/05/2024",
+        "date":"01/5/2024",
         "location":"journal"
     },
     {
         "heading":"Tester's note",
         "content":"The overall design is okay but need to add some smooth transition to the actions being performed so that it feels natural to use and people will not feel blocky",
         "tag":"test",
-        "date":"15/03/2024",
+        "date":"15/3/2024",
         "location":"my attachments"
     }
 ]
