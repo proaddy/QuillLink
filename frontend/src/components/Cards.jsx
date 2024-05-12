@@ -2,7 +2,7 @@ import { useState } from 'react';
 import testdata from '../data/testdata.json';
 
 
-export default function Cards({activePath}) {
+export default function Cards({activePath, filterText}) {
     const [testData, setTestData] = useState([...testdata]);
     const now = new Date();
 
@@ -38,7 +38,7 @@ export default function Cards({activePath}) {
           </div>
         }
         {
-            testData.filter(e=> e.location === activePath.toLowerCase()).map(e =>
+            testData.filter((e)=> e.location === activePath.toLowerCase() && e.heading.toLowerCase().includes(filterText)).map(e =>
                 {
                     return(
                     <div className='bg-[#FFC900] text-white rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44 cursor-pointer'>

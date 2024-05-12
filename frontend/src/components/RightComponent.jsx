@@ -7,12 +7,15 @@ export default function RightComponent({pageStat, bookStat}) {
     const [breadCrumPath, setBreadCrumPath] = useState([]);
     let newActivePath = [`${bookStat}`];
 
+    const [filterText, setFilterText] = useState('');
+
     useEffect(()=>{
         setActivePath(bookStat);
         setBreadCrumPath([]);
+        setFilterText('');
     },[bookStat]);
 
-    console.log(bookStat)
+    // console.log(bookStat)
 
     // functions
     const handlePath = (text)=>{
@@ -38,7 +41,7 @@ export default function RightComponent({pageStat, bookStat}) {
                   <div className="flex bg-white h-14 justify-between items-center p-2 rounded-lg">
                       <span className='flex items-center'>
                           <img src="/images/search.png" alt="search" className='w-5 m-2'/>
-                          <input type="text" placeholder='Search....' className='p-2 rounded-md'/>
+                          <input type="text" onChange={(e)=>setFilterText(e.target.value)} placeholder='Search for Notes....' className='p-2 rounded-md'/>
                       </span>
                       <div className="flex rounded-full w-10">
                           <img src="/images/profile.png" alt="user"/>
@@ -72,7 +75,7 @@ export default function RightComponent({pageStat, bookStat}) {
                     </ul>
                     {   
                         bookStat != '' && <>
-                            <Cards activePath={activePath}/>
+                            <Cards activePath={activePath} filterText={filterText}/>
                             <hr className='w-[100%] border-black h-1'/>
                             <Folders activePath={activePath} setActivePath={setActivePath} breadCrumPath={breadCrumPath} setBreadCrumPath={setBreadCrumPath}/>
                         </>
