@@ -7,12 +7,13 @@ export default function RightComponent({pageStat, bookStat}) {
     const [breadCrumPath, setBreadCrumPath] = useState([]);
     let newActivePath = [`${bookStat}`];
 
-    const [filterText, setFilterText] = useState('');
+    const [searchText, setSearchText] = useState('');
+    const [filter, setFilter] = useState('all');
 
     useEffect(()=>{
         setActivePath(bookStat);
         setBreadCrumPath([]);
-        setFilterText('');
+        setSearchText('');
     },[bookStat]);
 
     // console.log(bookStat)
@@ -41,18 +42,18 @@ export default function RightComponent({pageStat, bookStat}) {
                   <div className="flex bg-white h-14 justify-between items-center p-2 rounded-lg">
                       <span className='flex items-center'>
                           <img src="/images/search.png" alt="search" className='w-5 m-2'/>
-                          <input type="text" onChange={(e)=>setFilterText(e.target.value)} placeholder='Search for Notes....' className='p-2 rounded-md'/>
+                          <input type="text" onChange={(e)=>setSearchText(e.target.value)} placeholder='Search for Notes....' className='p-2 rounded-md'/>
                       </span>
                       <div className="flex rounded-full w-10">
                           <img src="/images/profile.png" alt="user"/>
                       </div>
                   </div>
                   <div className="flex items-center space-x-10 justify-between my-5">
-                      <ul className='flex cursor-pointer list-none space-x-5 justify-evenly'>
-                          <li className='bg-[#FFC900] w-16 text-center p-2 rounded-md'>All</li>
-                          <li className='bg-white w-16 text-center p-2 rounded-md'>Today</li>
-                          <li className='bg-white w-28 text-center p-2 rounded-md'>This Week</li>
-                          <li className='bg-white w-28 text-center p-2 rounded-md'>This Month</li>
+                      <ul className='flex list-none space-x-5 justify-evenly'>
+                          <li onClick={()=>setFilter('all')} className={`${filter==='all'?'bg-[#FFC900]':'bg-white'} w-16 text-center p-2 rounded-md cursor-pointer`}>All</li>
+                          <li onClick={()=>setFilter('today')} className={`${filter==='today'?'bg-[#FFC900]':'bg-white'} w-16 text-center p-2 rounded-md cursor-pointer`}>Today</li>
+                          <li onClick={()=>setFilter('week')} className={`${filter==='week'?'bg-[#FFC900]':'bg-white'} w-28 text-center p-2 rounded-md cursor-pointer`}>This Week</li>
+                          <li onClick={()=>setFilter('month')} className={`${filter==='month'?'bg-[#FFC900]':'bg-white'} w-28 text-center p-2 rounded-md cursor-pointer`}>This Month</li>
                       </ul>
                   </div>
                     <ul className="flex list-none text-gray-600 my-1 space-x-1">
@@ -75,7 +76,7 @@ export default function RightComponent({pageStat, bookStat}) {
                     </ul>
                     {   
                         bookStat != '' && <>
-                            <Cards activePath={activePath} filterText={filterText}/>
+                            <Cards activePath={activePath} searchText={searchText} filter={filter}/>
                             <hr className='w-[100%] border-black h-1'/>
                             <Folders activePath={activePath} setActivePath={setActivePath} breadCrumPath={breadCrumPath} setBreadCrumPath={setBreadCrumPath}/>
                         </>

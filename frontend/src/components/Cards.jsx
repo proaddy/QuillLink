@@ -2,9 +2,22 @@ import { useState } from 'react';
 import testdata from '../data/testdata.json';
 
 
-export default function Cards({activePath, filterText}) {
+export default function Cards({activePath, searchText, filter}) {
     const [testData, setTestData] = useState([...testdata]);
     const now = new Date();
+
+
+    // let filteredData = testData.filter(e=>e.date)
+    // let startDate = '';
+    // let endDate = '';
+
+    if (filter === 'today') {
+        let newarray = testData.filter(e=>{
+            let mydate = new Date(Date.parse(e.date));
+            mydate.getDate() === now.getDate() && mydate.getMonth() === now.getMonth() && mydate.getFullYear() === now.getFullYear()
+        })
+        setTestData(newarray);
+    }
 
     // input states
     const [showValue, setShowValue] = useState(false);
@@ -29,6 +42,13 @@ export default function Cards({activePath, filterText}) {
     const showinput = ()=>{
         setShowValue(!showValue);
     }
+
+    // if (filter === 'today') {
+    //     startDate = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+    // } else if (filter === 'week') {
+    //     startDate = `${now.getDate()-7}/${now.getMonth()+1}/${now.getFullYear()}`;
+    //     endDate = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+    // }
     
   return (
     <div className='flex flex-wrap my-5 max-h-56 overflow-y-auto'>
@@ -38,13 +58,13 @@ export default function Cards({activePath, filterText}) {
           </div>
         }
         {
-            testData.filter((e)=> e.location === activePath.toLowerCase() && e.heading.toLowerCase().includes(filterText)).map(e =>
+            testData.filter((e)=> e.location === activePath.toLowerCase() && e.heading.toLowerCase().includes(searchText)).map(e =>
                 {
                     return(
-                    <div className='bg-[#FFC900] text-white rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44 cursor-pointer'>
+                    <div key={e.heading} className='bg-[#FFC900] text-white rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44 cursor-pointer'>
                         <p className='flex justify-between'>
                             <span className='font-bold text-xl'>{e.heading}</span>
-                            <span className='bg-white text-[#FFC900] p-1 h-8 rounded-sm'>{e.tag}</span>
+                            <span className='bg-white text-[#FFC900] p-1 h-8 rounded-sm'>{String(e.tag.substring(0,30))+".."}</span>
                         </p>
                         <p>{String(e.content.substring(0,120))+"...."}</p>
                         <span className='self-end text-sm'>{e.date}</span>
