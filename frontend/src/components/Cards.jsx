@@ -1,29 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import testdata from '../data/testdata.json';
+import moment from 'moment';
 
 
 export default function Cards({activePath, searchText, filter}) {
     const [testData, setTestData] = useState([...testdata]);
-    const now = new Date();
+    
+    const today = moment();
 
+    function isToday(datestring) {
+        const checkdate = moment(datestring.date, 'YYYY-MM-DD');
+        let result = checkdate.isSame(today, 'day', '[]');
+        return result;
+    }
+    function isWithinWeek(datestring) {
+        const endOfWeek = today.clone().endOf('W');
+        const startOfWeek = today.clone().startOf('W');
+        return moment(datestring.date, 'YYYY-MM-DD').isBetween(startOfWeek, endOfWeek, 'day', '[]')
+    };
 
-    // let filteredData = testData.filter(e=>e.date)
-    // let startDate = '';
-    // let endDate = '';
+    function isWithinMonth(datestring) {
+        const endOfMonth = today.clone().endOf('M');
+        const startOfMonth = today.clone().startOf('M');
+        return moment(datestring.date, 'YYYY-MM-DD').isBetween(startOfMonth, endOfMonth, 'day', '[]')
+    };
 
+    let filterData = [];
     if (filter === 'today') {
-        let newarray = testData.filter(e=>{
-            let mydate = new Date(Date.parse(e.date));
-            mydate.getDate() === now.getDate() && mydate.getMonth() === now.getMonth() && mydate.getFullYear() === now.getFullYear()
-        })
-        setTestData(newarray);
+        console.log('today working');
+        filterData = testData.filter(e => isToday(e));
+    } else if(filter === 'week') {
+        console.log('week working');
+        filterData = testData.filter(e => isWithinWeek(e));
+    }else if (filter === 'month') {
+        console.log('month working');
+        filterData = testData.filter(e => isWithinMonth(e));
+    } else {
+        console.log('else working');
+        filterData = testdata;
     }
 
     // input states
     const [showValue, setShowValue] = useState(false);
     const [newValue, setNewValue] = useState('');
-
-    // console.log(activePath);
 
     const showdata = ()=>{
         setShowValue(!showValue);
@@ -32,7 +51,7 @@ export default function Cards({activePath, searchText, filter}) {
                 "heading": newValue,
                 "content":"",
                 "tag":"",
-                "date":`${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`,
+                "date":`${today.year()}-${today.month()+1}-${today.date()}`,
                 "location":activePath.toLowerCase(), 
             }]);
         }
@@ -42,13 +61,6 @@ export default function Cards({activePath, searchText, filter}) {
     const showinput = ()=>{
         setShowValue(!showValue);
     }
-
-    // if (filter === 'today') {
-    //     startDate = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
-    // } else if (filter === 'week') {
-    //     startDate = `${now.getDate()-7}/${now.getMonth()+1}/${now.getFullYear()}`;
-    //     endDate = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
-    // }
     
   return (
     <div className='flex flex-wrap my-5 max-h-56 overflow-y-auto'>
@@ -58,10 +70,10 @@ export default function Cards({activePath, searchText, filter}) {
           </div>
         }
         {
-            testData.filter((e)=> e.location === activePath.toLowerCase() && e.heading.toLowerCase().includes(searchText)).map(e =>
+            filterData.filter((e)=> e.location === activePath.toLowerCase() && e.heading.toLowerCase().includes(searchText)).map((e, idx) =>
                 {
                     return(
-                    <div key={e.heading} className='bg-[#FFC900] text-white rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44 cursor-pointer'>
+                    <div key={idx} className='bg-[#FFC900] text-white rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44 cursor-pointer'>
                         <p className='flex justify-between'>
                             <span className='font-bold text-xl'>{e.heading}</span>
                             <span className='bg-white text-[#FFC900] p-1 h-8 rounded-sm'>{String(e.tag.substring(0,30))+".."}</span>
