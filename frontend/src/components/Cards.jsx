@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import testdata from '../data/testdata.json';
 import moment from 'moment';
 
 
-export default function Cards({activePath, searchText, filter}) {
-    const [testData, setTestData] = useState([...testdata]);
-    
+export default function Cards({activePath, searchText, filter, userid}) {
+    const userFilter = testdata.filter(e=>e.userID === userid);
+    const [testData, setTestData] = useState([...userFilter]);
     const today = moment();
 
     function isToday(datestring) {
@@ -37,8 +37,9 @@ export default function Cards({activePath, searchText, filter}) {
         filterData = testData.filter(e => isWithinMonth(e));
     } else {
         console.log('else working');
-        filterData = testdata;
+        filterData = testData;
     }
+
 
     // input states
     const [showValue, setShowValue] = useState(false);
@@ -70,10 +71,10 @@ export default function Cards({activePath, searchText, filter}) {
           </div>
         }
         {
-            filterData.filter((e)=> e.location === activePath.toLowerCase() && e.heading.toLowerCase().includes(searchText)).map((e, idx) =>
+            filterData.filter((e)=> e.location === activePath.toLowerCase() && e.heading.toLowerCase().includes(searchText)).map((e, i) =>
                 {
                     return(
-                    <div key={idx} className='bg-[#FFC900] text-white rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44 cursor-pointer'>
+                    <div key={i} className='bg-[#FFC900] text-white rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44 cursor-pointer'>
                         <p className='flex justify-between'>
                             <span className='font-bold text-xl'>{e.heading}</span>
                             <span className='bg-white text-[#FFC900] p-1 h-8 rounded-sm'>{String(e.tag.substring(0,30))+".."}</span>

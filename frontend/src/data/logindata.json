@@ -1,23 +1,33 @@
 [
     {
         "uname":"adarsh",
-        "passw":"password"
+        "passw":"password",
+        "email":"kuchtoh@kuchmail.com",
+        "_id":"001"
     },
     {
         "uname":"manish",
-        "passw":"asdfj"
+        "passw":"asdfj",
+        "email":"kuchtoh@kuchmail.com",
+        "_id":"002"
     },
     {
         "uname":"kanha",
-        "passw":"qwerty"
+        "passw":"qwerty",
+        "email":"kuchtoh@kuchmail.com",
+        "_id":"003"
     },
     {
         "uname":"rakesh",
-        "passw":"zxc"
+        "passw":"asswordp",
+        "email":"kuchtoh@kuchmail.com",
+        "_id":"004"
     },
     {
         "uname":"priti",
-        "passw":"password"
+        "passw":"password",
+        "email":"kuchtoh@kuchmail.com",
+        "_id":"005"
     }
     
 ]

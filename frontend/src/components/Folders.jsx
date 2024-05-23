@@ -1,8 +1,9 @@
 import folders from '../data/folderlist.json';
 import { useState } from 'react';
 
-export default function Folders({activePath, setActivePath, breadCrumPath, setBreadCrumPath}) {
-    const [testData, setTestData] = useState([...folders]);
+export default function Folders({activePath, setActivePath, breadCrumPath, setBreadCrumPath, userid}) {
+    const folderFilter = folders.filter(e=>e.userID === userid)
+    const [testData, setTestData] = useState([...folderFilter]);
     // console.log(testData);
 
     // console.log(breadCrumPath);

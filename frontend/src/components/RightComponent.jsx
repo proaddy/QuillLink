@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import Cards from './Cards'
 import Folders from './Folders';
+import { useNavigate } from 'react-router-dom';
 
-export default function RightComponent({pageStat, bookStat}) {
+export default function RightComponent({pageStat, bookStat, user}) {
     const [activePath, setActivePath] = useState(bookStat);
     const [breadCrumPath, setBreadCrumPath] = useState([]);
     let newActivePath = [`${bookStat}`];
+
+    const navigate = useNavigate();
 
     const [searchText, setSearchText] = useState('');
     const [filter, setFilter] = useState('all');
@@ -32,6 +35,11 @@ export default function RightComponent({pageStat, bookStat}) {
         setBreadCrumPath(temp);
         setActivePath(newActivePath.concat(temp).join('/')); // this line concats two arrays and make then string using join doesn't work if the data types are not array
     }
+
+    const logout = ()=>{
+        localStorage.setItem('username', null);
+        navigate('/login');
+    }
     
   return (
     <div className='flex flex-col flex-[1_1_85%] bg-slate-400 p-2 overflow-hidden'>
@@ -44,8 +52,8 @@ export default function RightComponent({pageStat, bookStat}) {
                           <img src="/images/search.png" alt="search" className='w-5 m-2'/>
                           <input type="text" onChange={(e)=>setSearchText(e.target.value)} placeholder='Search for Notes....' className='p-2 rounded-md'/>
                       </span>
-                      <div className="flex rounded-full w-10">
-                          <img src="/images/profile.png" alt="user"/>
+                      <div onClick={logout} className="flex rounded-full w-10 cursor-pointer">
+                          <img src="/images/profile.png" alt="user" title='Logout Button'/>
                       </div>
                   </div>
                   <div className="flex items-center space-x-10 justify-between my-5">
@@ -76,9 +84,9 @@ export default function RightComponent({pageStat, bookStat}) {
                     </ul>
                     {   
                         bookStat != '' && <>
-                            <Cards activePath={activePath} searchText={searchText} filter={filter}/>
+                            <Cards activePath={activePath} searchText={searchText} filter={filter} userid={user._id}/>
                             <hr className='w-[100%] border-black h-1'/>
-                            <Folders activePath={activePath} setActivePath={setActivePath} breadCrumPath={breadCrumPath} setBreadCrumPath={setBreadCrumPath}/>
+                            <Folders activePath={activePath} setActivePath={setActivePath} breadCrumPath={breadCrumPath} setBreadCrumPath={setBreadCrumPath} userid={user._id}/>
                         </>
                     }
                     

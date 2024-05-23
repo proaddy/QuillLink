@@ -1,50 +1,62 @@
 [
     {
         "name":"folder 1",
-        "location":"my notes"
+        "location":"my notes",
+        "userID":"001"
     },
     {
         "name":"folder 2",
-        "location":"my notes/folder 1"
+        "location":"my notes/folder 1",
+        "userID":"001"
     },
     {
         "name":"folder 3",
-        "location":"my notes/folder 1/folder 2"
+        "location":"my notes/folder 1/folder 2",
+        "userID":"001"
     },
     {
         "name":"folder 4",
-        "location":"my notes"
+        "location":"my notes",
+        "userID":"005"
     },
     {
         "name":"folder 5",
-        "location":"my notes"
+        "location":"my notes",
+        "userID":"004"
     },
     {
         "name":"folder 6",
-        "location":"my notes"
+        "location":"my notes",
+        "userID":"003"
     },
     {
         "name":"folder 7",
-        "location":"my notes/folder 6"
+        "location":"my notes/folder 6",
+        "userID":"003"
     },
     {
         "name":"folder 8",
-        "location":"project"
+        "location":"project",
+        "userID":"002"
     },
     {
         "name":"folder 9",
-        "location":"journal"
+        "location":"journal",
+        "userID":"002"
     },
     {
         "name":"folder 10",
-        "location":"journal"
+        "location":"journal",
+        "userID":"004"
     },
     {
         "name":"folder 11",
-        "location":"assignments"
+        "location":"assignments",
+        "userID":"005"
     },
     {
         "name":"folder 12",
-        "location":"project"
+        "location":"project",
+        "userID":"003"
     }
 ]
