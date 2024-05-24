@@ -4,9 +4,6 @@ import { useState } from 'react';
 export default function Folders({activePath, setActivePath, breadCrumPath, setBreadCrumPath, userid}) {
     const folderFilter = folders.filter(e=>e.userID === userid)
     const [testData, setTestData] = useState([...folderFilter]);
-    // console.log(testData);
-
-    // console.log(breadCrumPath);
 
     // inputs
     const [showValue, setShowValue] = useState(false);
@@ -15,7 +12,7 @@ export default function Folders({activePath, setActivePath, breadCrumPath, setBr
     const showdata = ()=>{
         setShowValue(!showValue);
         if(newValue != ''){
-            setTestData([...testData, {"name": newValue, "location":activePath.toLowerCase()}]);
+            setTestData([...testData, {"name": newValue, "location":activePath.toLowerCase(), "userID":userid}]);
         }
         setNewValue('');
     }
@@ -25,10 +22,10 @@ export default function Folders({activePath, setActivePath, breadCrumPath, setBr
     }
 
   return (
-    <div className='overflow-y-auto max-h-72'>
+    <div className='overflow-y-auto max-h-72 mt-3'>
         {
             showValue && <div className='absolute top-0 left-0 h-full w-full bg-black/50 flex justify-center'>
-            <input className='h-14 w-[50%] p-3 m-5 rounded-lg' type="text" value={newValue} onChange={(e)=>setNewValue(e.target.value)} onBlur={showdata} placeholder='Enter Name...'/>
+            <input autoFocus className='h-14 w-[50%] p-3 m-5 rounded-lg' type="text" value={newValue} onChange={(e)=>setNewValue(e.target.value)} onBlur={showdata} placeholder='Enter Name...'/>
           </div>
         }
         <div className="flex flex-wrap">

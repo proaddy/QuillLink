@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import testdata from '../data/testdata.json';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
+export default function Cards({dataarray, activePath, searchText, filter, userid, page='home'}) {
+    const userFilter = dataarray.filter(e=>e.userID === userid);
+    // const [testData, setTestData] = useState([...userFilter]);
+    console.log(userFilter);
 
-export default function Cards({activePath, searchText, filter, userid}) {
-    const userFilter = testdata.filter(e=>e.userID === userid);
-    const [testData, setTestData] = useState([...userFilter]);
     const today = moment();
+    const navigate = useNavigate();
 
     function isToday(datestring) {
         const checkdate = moment(datestring.date, 'YYYY-MM-DD');
@@ -26,19 +28,10 @@ export default function Cards({activePath, searchText, filter, userid}) {
     };
 
     let filterData = [];
-    if (filter === 'today') {
-        console.log('today working');
-        filterData = testData.filter(e => isToday(e));
-    } else if(filter === 'week') {
-        console.log('week working');
-        filterData = testData.filter(e => isWithinWeek(e));
-    }else if (filter === 'month') {
-        console.log('month working');
-        filterData = testData.filter(e => isWithinMonth(e));
-    } else {
-        console.log('else working');
-        filterData = testData;
-    }
+    if (filter === 'today') { filterData = userFilter.filter(e => isToday(e)); } 
+    else if(filter === 'week') { filterData = userFilter.filter(e => isWithinWeek(e)); }
+    else if (filter === 'month') { filterData = userFilter.filter(e => isWithinMonth(e)); } 
+    else { filterData = userFilter; }
 
 
     // input states
@@ -48,13 +41,14 @@ export default function Cards({activePath, searchText, filter, userid}) {
     const showdata = ()=>{
         setShowValue(!showValue);
         if(newValue != ''){
-            setTestData([...testData, {
+            userFilter.push({
                 "heading": newValue,
                 "content":"",
                 "tag":"",
                 "date":`${today.year()}-${today.month()+1}-${today.date()}`,
-                "location":activePath.toLowerCase(), 
-            }]);
+                "location":activePath.toLowerCase(),
+                "userID":userid
+            });
         }
         setNewValue('');
     }
@@ -62,22 +56,40 @@ export default function Cards({activePath, searchText, filter, userid}) {
     const showinput = ()=>{
         setShowValue(!showValue);
     }
+
+    const transferToNotes = (e) => {
+        navigate("/editnote", {state: {notedata: e}});
+    }
+
+    const unarchiveNotes = (e) => {
+        e.status = 'active'
+    }
+
+    function colors(c){
+        const color = {
+            'yellow':'#ffd744',
+            'green':'#71fc55',
+            'blue':'#406ef7',
+            'red':'#f94242'
+        }
+        return color[c];
+    }
     
   return (
-    <div className='flex flex-wrap my-5 max-h-56 overflow-y-auto'>
+    <div className={`flex flex-wrap my-5 ${page === 'home' ? 'max-h-56':'h-[80dvh'} overflow-y-auto`}>
         {
             showValue && <div className='absolute top-0 left-0 h-full w-full bg-black/50 flex justify-center'>
-            <input className='h-14 w-[50%] p-3 m-5 rounded-lg' type="text" value={newValue} onChange={(e)=>setNewValue(e.target.value)} onBlur={showdata} placeholder='Enter Name...'/>
+            <input autoFocus className='h-14 w-[50%] p-3 m-5 rounded-lg' type="text" value={newValue} onChange={(e)=>setNewValue(e.target.value)} onBlur={showdata} placeholder='Enter Name...'/>
           </div>
         }
         {
-            filterData.filter((e)=> e.location === activePath.toLowerCase() && e.heading.toLowerCase().includes(searchText)).map((e, i) =>
+            filterData.filter((e)=> page === 'home' ? (e.location === activePath.toLowerCase()):(true)).filter((e)=>e.heading.toLowerCase().includes(searchText)).map((e, i) =>
                 {
                     return(
-                    <div key={i} className='bg-[#FFC900] text-white rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44 cursor-pointer'>
+                    <div key={i} onClick={()=>page === 'home'?transferToNotes(e):unarchiveNotes(e)} className={`bg-[${colors(e.color)}] rounded-md flex overflow-hidden flex-col justify-between m-2 p-2 w-96 h-44 cursor-pointer`}>
                         <p className='flex justify-between'>
                             <span className='font-bold text-xl'>{e.heading}</span>
-                            <span className='bg-white text-[#FFC900] p-1 h-8 rounded-sm'>{String(e.tag.substring(0,30))+".."}</span>
+                            <span className={`bg-white text-[${colors(e.color)}] p-1 h-8 rounded-sm`}>{String(e.tag.substring(0,30))+".."}</span>
                         </p>
                         <p>{String(e.content.substring(0,120))+"...."}</p>
                         <span className='self-end text-sm'>{e.date}</span>
@@ -85,10 +97,13 @@ export default function Cards({activePath, searchText, filter, userid}) {
                 )}  
             )
         }
-        <div onClick={showinput} className='text-[#FFC900] rounded-md flex flex-col items-center justify-center outline-dashed outline-[#FFC900] m-2 p-2 w-96 h-44 cursor-pointer hover:bg-white/20'>
-            <img src="/images/add-yellow.png" className='w-16'/>
-            New Folder
-        </div>
+        {
+            page === 'home' &&  (<div onClick={showinput} className='text-white rounded-md flex flex-col items-center justify-center outline-dashed outline-white m-2 p-2 w-96 h-44 cursor-pointer hover:bg-white/20'>
+                                    <img src="/images/add-white.png" className='w-16'/>
+                                    New Card
+                                </div>)
+        }
+        
     </div>
   )
 }

@@ -1,28 +1,32 @@
 import { useState } from 'react';
 import bookdata from '../data/bookdata.json';
+import { Link } from 'react-router-dom';
 
 
-export default function LeftComponent({pageStat, setPage, bookStat, setBookStat}) {
+export default function LeftComponent({pageStat, bookStat, setBookStat, user}) {
   const [newValue, setNewValue] = useState('');
   const [takeInput,setTakeInput] = useState(false);
-  const [bookDataValue, setBookDataValue] = useState([...bookdata]);
+
+  const bookFilter = bookdata.filter(e=>e.userID === user._id);
+  const [bookDataValue, setBookDataValue] = useState([...bookFilter]);
 
   const handleInputData = ()=>{
     setTakeInput(!takeInput);
-    setBookDataValue([...bookDataValue, {name:newValue, user:"adarsh"}]);
-    console.log(bookDataValue);
+    if (newValue.length != 0) {
+      setBookDataValue([...bookDataValue, {name:newValue, userID:user._id}]);
+      console.log(bookDataValue, 'new book created');
+    }
     setNewValue('');
   }
 
   return (
-    <div className='h-screen pt-2 flex flex-col items-center flex-[1_1_15%]'>
+    <div className='h-screen pt-2 flex flex-col items-center flex-[1_1_15%] min-w-52'>
       {
         takeInput && <div className='absolute top-0 left-0 h-full w-full bg-black/50 flex justify-center'>
-        <input className='h-14 w-[50%] p-3 m-5 rounded-lg' type="text" value={newValue} onChange={(e)=>setNewValue(e.target.value)} onBlur={handleInputData} placeholder='Enter Name...'/>
+        <input autoFocus className='h-14 w-[50%] p-3 m-5 rounded-lg' type="text" value={newValue} onChange={(e)=>setNewValue(e.target.value)} onBlur={handleInputData} placeholder='Enter Name...'/>
       </div>
       }
       
-
       {/* icon */}
       <p className="flex items-center text-[#564cba]">
           <img src="/images/favicon.png" className="w-10 m-1" />
@@ -31,29 +35,35 @@ export default function LeftComponent({pageStat, setPage, bookStat, setBookStat}
 
       {/* pages */}
       <div className='text-xl w-40 flex flex-col justify-center my-8'>
-        <p className={`flex items-center cursor-pointer ${pageStat === 'isHome' && 'bg-gray-100'} rounded-md`} onClick={()=>setPage('isHome')}>
-          <img src="/images/home.png" className='w-6 m-3' alt="Home" />
-          <span>Home</span>
-        </p>
-        <p className={`flex items-center cursor-pointer ${pageStat === 'isArchive' && 'bg-gray-100'} rounded-md`} onClick={()=>setPage('isArchive')}>
-          <img src="/images/archive.png" className='w-6 m-3' alt="Archive" />
-          <span>Archive</span>
-        </p>
-        <p className={`flex items-center cursor-pointer ${pageStat === 'isTrash' && 'bg-gray-100'} rounded-md`} onClick={()=>setPage('isTrash')}>
-          <img src="/images/trash.png" className='w-6 m-3' alt="Trash" />
-          <span>Trash</span>
-        </p>
+        <Link to='/dashboard'>
+          <p className={`flex items-center cursor-pointer ${pageStat === 'isHome' && 'bg-gray-100'} rounded-md`}>
+            <img src="/images/home.png" className='w-6 m-3' alt="Home" />
+            <span>Home</span>
+          </p>
+        </Link>
+        <Link to='/archive'>
+          <p className={`flex items-center cursor-pointer ${pageStat === 'isArchive' && 'bg-gray-100'} rounded-md`}>
+            <img src="/images/archive.png" className='w-6 m-3' alt="Archive" />
+            <span>Archive</span>
+          </p>
+        </Link>
+        <Link to='/bin'>
+          <p className={`flex items-center cursor-pointer ${pageStat === 'isTrash' && 'bg-gray-100'} rounded-md`}>
+            <img src="/images/trash.png" className='w-6 m-3' alt="Trash" />
+            <span>Trash</span>
+          </p>
+        </Link>
       </div>
 
       <hr className='bg-gray-200 border-solid w-[100%] h-1 mb-3'/>
 
       {/* Book list */}
       <div className="flex flex-col h-screen justify-between">
-        <div className='flex-1 p-1'>
-          {
+        <div className='flex-1'>
+          {pageStat === 'isHome' &&
             bookDataValue.map(e=>{ return (
-              <div onClick={()=>{setBookStat(e.name)}} className={`cursor-pointer flex items-center rounded-md hover:bg-gray-50 ${bookStat === e.name && "bg-gray-100"}`} key={e.name}>
-                <img src="/images/book.png" alt="book" className='w-6 m-2'/>
+              <div onClick={()=>{setBookStat(e.name)}} className={`cursor-pointer flex items-center rounded-md hover:bg-gray-50 ${bookStat === e.name && "bg-gray-100"} p-3`} key={e.name}>
+                <img src="/images/book.png" alt="book" className='w-6 mr-2'/>
                 <span>{e.name}</span>
               </div>
             )})

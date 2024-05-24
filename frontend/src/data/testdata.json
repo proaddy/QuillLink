@@ -5,7 +5,9 @@
         "tag":"meeting",
         "date":"2024-4-29",
         "location":"my notes/folder 1",
-        "userID":"001"
+        "userID":"001",
+        "status":"active",
+        "color":"green"
     },
     {
         "heading":"Client meeting review",
@@ -13,7 +15,9 @@
         "tag":"meeting",
         "date":"2024-4-29",
         "location":"my notes",
-        "userID":"005"
+        "userID":"005",
+        "status":"archive",
+        "color":"blue"
     },
     {
         "heading":"Jokes on how meeting went",
@@ -21,7 +25,9 @@
         "tag":"meeting",
         "date":"2024-4-29",
         "location":"my notes/folder 2",
-        "userID":"002"
+        "userID":"002",
+        "status":"active",
+        "color":"red"
     },
     {
         "heading":"Deadlines mentioned in the meeting",
@@ -29,7 +35,9 @@
         "tag":"meeting",
         "date":"2024-4-29",
         "location":"projects",
-        "userID":"004"
+        "userID":"004",
+        "status":"active",
+        "color":"yellow"
     },
     {
         "heading":"We went to battle royal playground event",
@@ -37,7 +45,9 @@
         "tag":"playground",
         "date":"2024-5-1",
         "location":"journal",
-        "userID":"003"
+        "userID":"003",
+        "status":"active",
+        "color":"yellow"
     },
     {
         "heading":"Tester's note",
@@ -45,7 +55,9 @@
         "tag":"test",
         "date":"2024-3-15",
         "location":"my attachments",
-        "userID":"001"
+        "userID":"001",
+        "status":"archive",
+        "color":"red"
     },
     {
         "heading":"Client meeting review",
@@ -53,7 +65,9 @@
         "tag":"weekly",
         "date":"2024-5-6",
         "location":"my notes",
-        "userID":"001"
+        "userID":"001",
+        "status":"trash",
+        "color":"yellow"
     },
     {
         "heading":"Client meeting review",
@@ -61,7 +75,9 @@
         "tag":"2daybefore",
         "date":"2024-5-10",
         "location":"my notes",
-        "userID":"001"
+        "userID":"001",
+        "status":"archive",
+        "color":"blue"
     },
     {
         "heading":"Client meeting review",
@@ -69,7 +85,9 @@
         "tag":"monthly",
         "date":"2024-4-13",
         "location":"my notes",
-        "userID":"001"
+        "userID":"001",
+        "status":"trash",
+        "color":"green"
     },
     {
         "heading":"Client meeting review",
@@ -77,7 +95,9 @@
         "tag":"today",
         "date":"2024-5-12",
         "location":"my notes",
-        "userID":"001"
+        "userID":"001",
+        "status":"archive",
+        "color":"yellow"
     },
     {
         "heading":"Test note",
@@ -85,7 +105,9 @@
         "tag":"meeting",
         "date":"2024-5-20",
         "location":"my notes",
-        "userID":"001"
+        "userID":"001",
+        "status":"active",
+        "color":"red"
     },
     {
         "heading":"End Test note",
@@ -93,7 +115,9 @@
         "tag":"meeting",
         "date":"2024-5-24",
         "location":"my notes",
-        "userID":"001"
+        "userID":"001",
+        "status":"active",
+        "color":"green"
     },
     {
         "heading":"Start Test note",
@@ -101,7 +125,9 @@
         "tag":"meeting",
         "date":"2024-5-19",
         "location":"my notes",
-        "userID":"005"
+        "userID":"005",
+        "status":"active",
+        "color":"yellow"
     },
     {
         "heading":"Test note",
@@ -109,7 +135,9 @@
         "tag":"meeting",
         "date":"2024-5-26",
         "location":"my notes",
-        "userID":"004"
+        "userID":"004",
+        "status":"active",
+        "color":"yellow"
     },
     {
         "heading":"Phantom Bug",
@@ -117,6 +145,8 @@
         "tag":"today",
         "date":"2024-5-20",
         "location":"my notes",
-        "userID":"005"
+        "userID":"005",
+        "status":"active",
+        "color":"yellow"
     }
 ]

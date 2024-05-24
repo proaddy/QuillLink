@@ -7,27 +7,29 @@ import { useEffect } from "react";
 
 export default function HomePage() {
   const nagivate = useNavigate();
-  const locate = useLocation();
 
-  const loggedIn = localStorage.getItem('username') === true;
+  const loggedIn = localStorage.getItem('username') != null;
+  const uname = localStorage.getItem('userID') != null;
+
+  const userData = {
+    "username":localStorage.getItem('username'),
+    "_id":localStorage.getItem('userID')
+  }
   
   useEffect(()=>{
-    if(!loggedIn && locate.state === null) {
+    if(!loggedIn && !uname) {
       nagivate('/login');
     }
-  }, [locate.state, loggedIn])
-
-  // isHome, isArchive, isTrash
-  const [pageStat, setPageStat] = useState('isHome');
+  }, [loggedIn])
 
   // on different books
   const [bookStat, setBookStat] = useState('');
 
   return (
     <div className="flex overflow-hidden">
-        <LeftComponent pageStat={pageStat} setPage={setPageStat} bookStat={bookStat} setBookStat={setBookStat}></LeftComponent>
+        <LeftComponent pageStat={'isHome'} bookStat={bookStat} setBookStat={setBookStat} user={userData}></LeftComponent>
         
-        <RightComponent pageStat={pageStat} bookStat={bookStat} user={locate.state}></RightComponent>
+        <RightComponent bookStat={bookStat} user={userData}></RightComponent>
     </div>
   )
 }

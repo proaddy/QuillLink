@@ -1,22 +1,22 @@
 [
     {
         "name":"My Notes",
-        "user":"adarsh"
+        "userID":"001"
     },
     {
         "name":"My Attachments",
-        "user":"adarsh"
+        "userID":"002"
     },
     {
         "name":"Projects",
-        "user":"adarsh"
+        "userID":"003"
     },
     {
         "name":"Journal",
-        "user":"adarsh"
+        "userID":"004"
     },
     {
         "name":"Assignments",
-        "user":"adarsh"
+        "userID":"005"
     }
 ]

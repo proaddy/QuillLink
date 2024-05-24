@@ -30,6 +30,7 @@ export default function LoginPage() {
           if (user.passw === passw) {
             alert("Login Successfull");
             localStorage.setItem('username', uname.toLowerCase());
+            localStorage.setItem('userID', user._id)
             navigate("/dashboard", { state: {username: uname, _id:user._id} });
           } else {
             alert("Wrong Password");
