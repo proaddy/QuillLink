@@ -1,18 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
-
-import logindata from "../data/logindata.json";
 import { useState } from "react";
 
-export default function RegisterPage() {
+export default function RegisterPage({loginData, setLoginData}) {
   const navigate = useNavigate();
   const [show, setShow] = useState("hide");
+  let _id = loginData.length+1;
+  // console.log(_id);
 
   // input
   const [uname, setUname] = useState('');
   const [passw, setPassw] = useState('');
   const [email, setEmail] = useState('');
-
 
   const submitData = (e) => {
     e.preventDefault();
@@ -23,10 +22,18 @@ export default function RegisterPage() {
     } else if (uname.indexOf(" ") != -1 || passw.indexOf(" ") != -1) {
       alert("Username or Password cannot have space");
     } else {
-      const user = logindata.find(e=>e.uname === uname);
+      const user = loginData.find(e=>e.uname === uname);
       if (!user) {
-        const payload = Object.fromEntries(new FormData(e.target));
-        console.log(payload);
+        // const payload = Object.fromEntries(new FormData(e.target));
+        // console.log(payload);
+        setLoginData([...loginData, {
+          "uname":uname,
+          "passw":passw,
+          "email":email,
+          "_id": _id
+        }])
+        console.log(loginData);
+        alert("User Registered!!!");
         navigate("/login");
       } else {
         alert("User Already Exist");
@@ -73,7 +80,7 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <div className="flex mt-4">
+            <div className="flex  my-3">
               <input
                 type={show === "show" ? "text" : "password"}
                 placeholder="Enter Password"
@@ -95,10 +102,8 @@ export default function RegisterPage() {
             <Button text={"Sign Up"} round="md" />
           </form>
           <span className="mt-8 text-lg">
-            Already have a account?{" "}
-            <Link to="/login" className="font-bold">
-              Sign In
-            </Link>
+            Already have a account?
+            <Link to="/login" className="font-bold mx-1">Sign In</Link>
           </span>
         </div>
       </div>

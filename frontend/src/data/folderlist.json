@@ -1,62 +1,74 @@
 [
     {
+        "_id":"1",
         "name":"folder 1",
         "location":"my notes",
-        "userID":"001"
+        "userID":"1"
     },
     {
+        "_id":"2",
         "name":"folder 2",
         "location":"my notes/folder 1",
-        "userID":"001"
+        "userID":"1"
     },
     {
+        "_id":"3",
         "name":"folder 3",
         "location":"my notes/folder 1/folder 2",
-        "userID":"001"
+        "userID":"1"
     },
     {
+        "_id":"4",
         "name":"folder 4",
         "location":"my notes",
-        "userID":"005"
+        "userID":"5"
     },
     {
+        "_id":"5",
         "name":"folder 5",
         "location":"my notes",
-        "userID":"004"
+        "userID":"4"
     },
     {
+        "_id":"6",
         "name":"folder 6",
         "location":"my notes",
-        "userID":"003"
+        "userID":"3"
     },
     {
+        "_id":"7",
         "name":"folder 7",
         "location":"my notes/folder 6",
-        "userID":"003"
+        "userID":"3"
     },
     {
+        "_id":"8",
         "name":"folder 8",
         "location":"project",
-        "userID":"002"
+        "userID":"2"
     },
     {
+        "_id":"9",
         "name":"folder 9",
         "location":"journal",
-        "userID":"002"
+        "userID":"2"
     },
     {
+        "_id":"10",
         "name":"folder 10",
         "location":"journal",
-        "userID":"004"
+        "userID":"4"
     },
     {
+        "_id":"11",
         "name":"folder 11",
         "location":"assignments",
-        "userID":"005"
+        "userID":"5"
     },
     {
+        "_id":"12",
         "name":"folder 12",
         "location":"project",
-        "userID":"003"
+        "userID":"3"
     }
 ]

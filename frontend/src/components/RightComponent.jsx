@@ -3,14 +3,12 @@ import Cards from './Cards'
 import Folders from './Folders';
 import { useNavigate } from 'react-router-dom';
 
-import testdata from '../data/testdata.json';
-
-export default function RightComponent({bookStat, user}) {
+export default function RightComponent({bookStat, user, notesData, setNotesData, folderData, setFolderData}) {
     const [activePath, setActivePath] = useState(bookStat);
     const [breadCrumPath, setBreadCrumPath] = useState([]);
     let newActivePath = [`${bookStat}`];
 
-    let dataarray = testdata.filter(e=>e.status === 'active');
+    let dataarray = notesData.filter(e=>e.status === 'active');
 
     const navigate = useNavigate();
 
@@ -90,9 +88,9 @@ export default function RightComponent({bookStat, user}) {
             {/* Notes and Folders */}
             {   
                 bookStat != '' && <>
-                    <Cards dataarray={dataarray} activePath={activePath} searchText={searchText} filter={filter} userid={user._id}/>
+                    <Cards dataarray={dataarray} notesData={notesData} setNotesData={setNotesData} activePath={activePath} searchText={searchText} filter={filter} userid={user}/>
                     <hr className='w-[100%] border-black h-1'/>
-                    <Folders activePath={activePath} setActivePath={setActivePath} breadCrumPath={breadCrumPath} setBreadCrumPath={setBreadCrumPath} userid={user._id}/>
+                    <Folders activePath={activePath} setActivePath={setActivePath} breadCrumPath={breadCrumPath} setBreadCrumPath={setBreadCrumPath} userid={user} folderData={folderData} setFolderData={setFolderData}/>
                 </>
             }
         </div>

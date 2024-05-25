@@ -3,31 +3,31 @@
         "uname":"adarsh",
         "passw":"password",
         "email":"kuchtoh@kuchmail.com",
-        "_id":"001"
+        "_id":1
     },
     {
         "uname":"manish",
         "passw":"asdfj",
         "email":"kuchtoh@kuchmail.com",
-        "_id":"002"
+        "_id":2
     },
     {
         "uname":"kanha",
         "passw":"qwerty",
         "email":"kuchtoh@kuchmail.com",
-        "_id":"003"
+        "_id":3
     },
     {
         "uname":"rakesh",
         "passw":"asswordp",
         "email":"kuchtoh@kuchmail.com",
-        "_id":"004"
+        "_id":4
     },
     {
         "uname":"priti",
         "passw":"password",
         "email":"kuchtoh@kuchmail.com",
-        "_id":"005"
+        "_id":5
     }
     
 ]

@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import logindata from "../data/logindata.json";
-
-export default function LoginPage() {
+export default function LoginPage(prop) {
   const navigate = useNavigate();
 
   const [show, setShow] = useState("hide");
@@ -23,7 +21,7 @@ export default function LoginPage() {
         const payload = Object.fromEntries(new FormData(e.target));
         console.log(payload);
         
-        const user = logindata.find(e=>e.uname === uname.toLowerCase());
+        const user = prop.loginData.find(e=>e.uname === uname.toLowerCase());
         if(!user) {
           alert("No such user exist!!");
         } else {
@@ -100,17 +98,11 @@ export default function LoginPage() {
             </a>
             <button
               className="bg-[#FFC900] p-4 w-full rounded-md shadow-xl"
-              type="submit"
-            >
-              Sign In
-            </button>
+              type="submit">Sign In</button>
           </form>
           <span className="mt-8 text-lg">
-            Doesn't have a account?{" "}
-            <Link to="/register" className="font-bold">
-              Sign Up
-            </Link>{" "}
-            for free
+            Doesn't have a account?
+            <Link to="/register" className="font-bold mx-1">Sign Up</Link>for free
           </span>
         </div>
       </div>

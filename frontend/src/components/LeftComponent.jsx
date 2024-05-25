@@ -1,22 +1,30 @@
 import { useState } from 'react';
-import bookdata from '../data/bookdata.json';
 import { Link } from 'react-router-dom';
 
 
-export default function LeftComponent({pageStat, bookStat, setBookStat, user}) {
+export default function LeftComponent({pageStat, bookStat, setBookStat, user, bookData, setBookData}) {
   const [newValue, setNewValue] = useState('');
   const [takeInput,setTakeInput] = useState(false);
-
-  const bookFilter = bookdata.filter(e=>e.userID === user._id);
-  const [bookDataValue, setBookDataValue] = useState([...bookFilter]);
+  const length = bookData.length + 1;
 
   const handleInputData = ()=>{
     setTakeInput(!takeInput);
     if (newValue.length != 0) {
-      setBookDataValue([...bookDataValue, {name:newValue, userID:user._id}]);
-      console.log(bookDataValue, 'new book created');
+      setBookData([...bookData, 
+        {
+          "_id":length.toString(),
+          "name":newValue, 
+          "userID":user.toString()
+        }]);
+      console.log('New book created');
     }
     setNewValue('');
+  }
+
+  const handleBookDelete = (element) => {
+    const temp = bookData.filter(e=>e._id != element._id);
+    setBookData(temp);
+    setBookStat('');
   }
 
   return (
@@ -61,12 +69,15 @@ export default function LeftComponent({pageStat, bookStat, setBookStat, user}) {
       <div className="flex flex-col h-screen justify-between">
         <div className='flex-1'>
           {pageStat === 'isHome' &&
-            bookDataValue.map(e=>{ return (
-              <div onClick={()=>{setBookStat(e.name)}} className={`cursor-pointer flex items-center rounded-md hover:bg-gray-50 ${bookStat === e.name && "bg-gray-100"} p-3`} key={e.name}>
-                <img src="/images/book.png" alt="book" className='w-6 mr-2'/>
-                <span>{e.name}</span>
-              </div>
-            )})
+            bookData.filter(e=>e.userID.toString() === user).map((book, i)=>{
+              return (
+                <div className={`group flex items-center rounded-md hover:bg-gray-50 ${bookStat === book.name && "bg-gray-100"} p-3`} key={i}>
+                  <img src="/images/book.png" alt="book" className='w-6 mr-2'/>
+                  <span onClick={()=>{setBookStat(book.name)}} className='cursor-pointer '>{book.name}</span>
+                  <img onClick={()=>handleBookDelete(book)} src="/images/trash-red.png" className='cursor-pointer w-6 hidden group-hover:block mx-4' />
+                </div>
+              )
+            })
           }
         </div>
         <span className='flex-0 text-center p-2 mb-2 rounded-md h-10 bg-[#FFC900] cursor-pointer' onClick={()=>setTakeInput(!takeInput)}>Add Book</span>

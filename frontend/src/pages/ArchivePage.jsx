@@ -1,13 +1,11 @@
 import {useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import testdata from '../data/testdata.json';
-
 import Cards from "../components/Cards.jsx";
 import LeftComponent from "../components/LeftComponent.jsx";
 
-export default function ArchivePage() {
-    let dataarray = testdata.filter(e=>e.status === 'archive');
+export default function ArchivePage({notesData, setNotesData}) {
+    let dataarray = notesData.filter(e=>e.status === 'archive');
     const navigate = useNavigate();
 
     const userid = localStorage.getItem('userID');
@@ -44,7 +42,7 @@ export default function ArchivePage() {
                 <ul className="list-none text-gray-600 my-5">
                 <li className="font-bold">Archives</li>
                 </ul>
-                <Cards dataarray={dataarray} searchText={searchText} userid={userid} page='archive'/>
+                <Cards dataarray={dataarray} searchText={searchText} notesData={notesData} setNotesData={setNotesData} userid={userid} page='archive'/>
             </div>
             </div>
         </div>

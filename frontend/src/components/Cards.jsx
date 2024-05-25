@@ -2,10 +2,9 @@ import { useState } from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
-export default function Cards({dataarray, activePath, searchText, filter, userid, page='home'}) {
-    const userFilter = dataarray.filter(e=>e.userID === userid);
-    // const [testData, setTestData] = useState([...userFilter]);
-    console.log(userFilter);
+export default function Cards({dataarray, notesData, activePath, searchText, filter, userid, page='home', setNotesData}) {
+    const userFilter = dataarray.filter(e=>e.userID.toString() === userid);
+    const length = notesData.length + 1;
 
     const today = moment();
     const navigate = useNavigate();
@@ -33,22 +32,24 @@ export default function Cards({dataarray, activePath, searchText, filter, userid
     else if (filter === 'month') { filterData = userFilter.filter(e => isWithinMonth(e)); } 
     else { filterData = userFilter; }
 
-
     // input states
     const [showValue, setShowValue] = useState(false);
     const [newValue, setNewValue] = useState('');
 
-    const showdata = ()=>{
+    const handleNotesAdd = ()=>{
         setShowValue(!showValue);
         if(newValue != ''){
-            userFilter.push({
+            setNotesData([...notesData, {
+                "_id":length,
                 "heading": newValue,
                 "content":"",
                 "tag":"",
                 "date":`${today.year()}-${today.month()+1}-${today.date()}`,
                 "location":activePath.toLowerCase(),
-                "userID":userid
-            });
+                "userID":userid.toString(),
+                "status":"active",
+                "color":"yellow"
+            }]);
         }
         setNewValue('');
     }
@@ -61,8 +62,30 @@ export default function Cards({dataarray, activePath, searchText, filter, userid
         navigate("/editnote", {state: {notedata: e}});
     }
 
-    const unarchiveNotes = (e) => {
-        e.status = 'active'
+    const updated = (id, heading, content, tag, location, userID, color, stat) => {
+        let somedata = {
+        "_id":id.toString(),
+        "heading":heading,
+        "content":content,
+        "tag":tag,
+        "date":`${today.year()}-${today.month()+1}-${today.date()}`,
+        "location":location,
+        "userID":userID,
+        "status":stat,
+        "color":color
+        }
+        return somedata;
+    }
+
+    const unarchiveNotes = (element) => {
+        let makingUpdate = notesData.map((e) => {
+            if(e._id === element._id){
+                return updated(element._id, element.heading, element.content, element.tag, element.location, element.userID, element.color, "active");
+            }
+            return e;
+        });
+        setNotesData(makingUpdate);
+        // console.log(notesData);
     }
 
     function colors(c){
@@ -79,7 +102,7 @@ export default function Cards({dataarray, activePath, searchText, filter, userid
     <div className={`flex flex-wrap my-5 ${page === 'home' ? 'max-h-56':'h-[80dvh'} overflow-y-auto`}>
         {
             showValue && <div className='absolute top-0 left-0 h-full w-full bg-black/50 flex justify-center'>
-            <input autoFocus className='h-14 w-[50%] p-3 m-5 rounded-lg' type="text" value={newValue} onChange={(e)=>setNewValue(e.target.value)} onBlur={showdata} placeholder='Enter Name...'/>
+            <input autoFocus className='h-14 w-[50%] p-3 m-5 rounded-lg' type="text" value={newValue} onChange={(e)=>setNewValue(e.target.value)} onBlur={handleNotesAdd} placeholder='Enter Name...'/>
           </div>
         }
         {
@@ -94,7 +117,8 @@ export default function Cards({dataarray, activePath, searchText, filter, userid
                         <p>{String(e.content.substring(0,120))+"...."}</p>
                         <span className='self-end text-sm'>{e.date}</span>
                     </div>
-                )}  
+                )
+            }  
             )
         }
         {
