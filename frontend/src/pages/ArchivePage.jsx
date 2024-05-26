@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Cards from "../components/Cards.jsx";
 import LeftComponent from "../components/LeftComponent.jsx";
 
-export default function ArchivePage({notesData, setNotesData}) {
+export default function ArchivePage({notesData, setNotesData, bookData, setBookData}) {
     let dataarray = notesData.filter(e=>e.status === 'archive');
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ export default function ArchivePage({notesData, setNotesData}) {
 
     return (
         <div className="flex overflow-hidden">
-            <LeftComponent pageStat={'isArchive'} user={userData}/>
+            <LeftComponent pageStat={'isArchive'} user={userData} bookData={bookData} setBookData={setBookData}/>
             <div className="flex flex-col flex-[1_1_85%] bg-slate-400 p-2 overflow-hidden">
             <div className="w-[95%] self-center">
                 {/* Search and Logout */}
