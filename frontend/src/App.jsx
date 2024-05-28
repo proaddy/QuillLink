@@ -1,10 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useState } from "react"
-
-import testdata from "./data/testdata.json"
-import folderlist from "./data/folderlist.json"
-import bookdata from "./data/bookdata.json"
-import logindata from "./data/logindata.json"
+import axios from "axios"
 
 import HomePage from "./pages/HomePage.jsx"
 import LoginPage from "./pages/LoginPage.jsx"
@@ -14,10 +10,15 @@ import ArchivePage from "./pages/ArchivePage.jsx"
 import TrashPage from "./pages/TrashPage.jsx"
 
 function App() {
-  const [notesData, setNotesData] = useState(testdata);
-  const [folderData, setFolderData] = useState(folderlist);
-  const [bookData, setBookData] = useState(bookdata);
-  const [loginData, setLoginData] = useState(logindata);
+  const [notesData, setNotesData] = useState([]);
+  const [folderData, setFolderData] = useState([]);
+  const [bookData, setBookData] = useState([]);
+  const [loginData, setLoginData] = useState([]);
+
+  axios.get("https://data-for-frontend.onrender.com/testdata").then((res)=>setNotesData(res.data));
+  axios.get("https://data-for-frontend.onrender.com/bookdata").then((res)=>setBookData(res.data));
+  axios.get("https://data-for-frontend.onrender.com/folderlist").then((res)=>setFolderData(res.data));
+  axios.get("https://data-for-frontend.onrender.com/logindata").then((res)=>setLoginData(res.data));
 
   return (
     <div className="font-robotoslab">
@@ -29,13 +30,13 @@ function App() {
       </div>
       <BrowserRouter>
         <Routes>
-          <Route index element={<LoginPage/>}/>
+          <Route index element={<LoginPage loginData={loginData}/>}/>
           <Route path="/login" element={<LoginPage loginData={loginData}/>}/>
           <Route path="/register" element={<RegisterPage loginData={loginData} setLoginData={setLoginData}/>}/>
           <Route path="/dashboard" element={<HomePage folderData={folderData} setFolderData={setFolderData} notesData={notesData} setNotesData={setNotesData} bookData={bookData} setBookData={setBookData}/>}/>
-          <Route path="/archive" element={<ArchivePage folderData={folderData} setFolderData={setFolderData} notesData={notesData} setNotesData={setNotesData} bookData={bookData} setBookData={setBookData}/>}/>
-          <Route path="/bin" element={<TrashPage folderData={folderData} setFolderData={setFolderData} notesData={notesData} setNotesData={setNotesData} bookData={bookData} setBookData={setBookData}/>}/>
-          <Route path="/editnote" element={<NotesPage folderData={folderData} setFolderData={setFolderData} notesData={notesData} setNotesData={setNotesData} bookData={bookData} setBookData={setBookData}/>}/>
+          <Route path="/archive" element={<ArchivePage notesData={notesData} setNotesData={setNotesData} bookData={bookData} setBookData={setBookData}/>}/>
+          <Route path="/bin" element={<TrashPage notesData={notesData} setNotesData={setNotesData} bookData={bookData} setBookData={setBookData}/>}/>
+          <Route path="/editnote" element={<NotesPage notesData={notesData} setNotesData={setNotesData} bookData={bookData} setBookData={setBookData}/>}/>
           <Route path="*" element={<h1>404 No such page found</h1>}/>
         </Routes>
       </BrowserRouter>

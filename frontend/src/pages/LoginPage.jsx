@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function LoginPage(prop) {
+export default function LoginPage({loginData}) {
   const navigate = useNavigate();
 
   const [show, setShow] = useState("hide");
@@ -21,7 +21,7 @@ export default function LoginPage(prop) {
         const payload = Object.fromEntries(new FormData(e.target));
         console.log(payload);
         
-        const user = prop.loginData.find(e=>e.uname === uname.toLowerCase());
+        const user = loginData.find(e=>e.uname === uname.toLowerCase());
         if(!user) {
           alert("No such user exist!!");
         } else {
