@@ -31,8 +31,7 @@ export default function RegisterPage({loginData, setLoginData}) {
           "passw":passw,
           "email":email,
           "_id": _id
-        }])
-        console.log(loginData);
+        }]);
         alert("User Registered!!!");
         navigate("/login");
       } else {

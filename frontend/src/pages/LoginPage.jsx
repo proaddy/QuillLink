@@ -18,9 +18,6 @@ export default function LoginPage({loginData}) {
       if (uname.indexOf(" ") != -1 || passw.indexOf(" ") != -1) {
         alert("Username or Password cannot have space");
       } else {
-        const payload = Object.fromEntries(new FormData(e.target));
-        console.log(payload);
-        
         const user = loginData.find(e=>e.uname === uname.toLowerCase());
         if(!user) {
           alert("No such user exist!!");

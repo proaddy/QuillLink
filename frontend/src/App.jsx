@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 
 import HomePage from "./pages/HomePage.jsx"
@@ -15,10 +15,12 @@ function App() {
   const [bookData, setBookData] = useState([]);
   const [loginData, setLoginData] = useState([]);
 
-  axios.get("https://data-for-frontend.onrender.com/testdata").then((res)=>setNotesData(res.data));
-  axios.get("https://data-for-frontend.onrender.com/bookdata").then((res)=>setBookData(res.data));
-  axios.get("https://data-for-frontend.onrender.com/folderlist").then((res)=>setFolderData(res.data));
-  axios.get("https://data-for-frontend.onrender.com/logindata").then((res)=>setLoginData(res.data));
+  useEffect(()=>{
+    axios.get("https://data-for-frontend.onrender.com/testdata").then((res)=>setNotesData(res.data));
+    axios.get("https://data-for-frontend.onrender.com/bookdata").then((res)=>setBookData(res.data));
+    axios.get("https://data-for-frontend.onrender.com/folderlist").then((res)=>setFolderData(res.data));
+    axios.get("https://data-for-frontend.onrender.com/logindata").then((res)=>setLoginData(res.data));
+  },[])
 
   return (
     <div className="font-robotoslab">

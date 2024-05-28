@@ -3,19 +3,13 @@ import LeftComponent from "../components/LeftComponent";
 
 export default function TrashPage({notesData, setNotesData, bookData, setBookData}) {
     const userid = localStorage.getItem('userID');
-
-    let dataarray = notesData.filter(e=>e.status === 'trash');
+    let dataarray = notesData.filter((e)=>e.status === 'trash');
     // console.log(dataarray);
 
     const trashNotes = (() => {
-        const temp = notesData.map((e)=>{
-            if(e.status != 'trash') {
-                return e;
-            }
-        });
+        const temp = notesData.filter(e=>e.status !== 'trash');
         setNotesData(temp);
     })
-
     
     return (
         <div className="flex overflow-hidden">
