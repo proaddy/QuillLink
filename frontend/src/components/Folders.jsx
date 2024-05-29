@@ -42,19 +42,19 @@ export default function Folders({activePath, setActivePath, breadCrumPath, setBr
                 folderData.filter(e=>e.userID === userid).filter(e => e.location === activePath.toLowerCase()).map((e, i)=>{
                     return(
                         <div className="group">
-                            <span key={i} className='flex flex-col items-center rounded-md m-1 relative group-hover:border-4 group-hover:border-white'>
+                            <span key={i} className='flex flex-col items-center rounded-md m-1 relative group-hover:border-2 group-hover:border-gray-500'>
                                 <img onClick={()=>{
                                     setActivePath(`${activePath+'/'+e.name.toLowerCase()}`);
                                     setBreadCrumPath([...breadCrumPath,e.name]);
-                                }}  src="/images/chapter.png" className='cursor-pointer w-40 h-44'/>
+                                }}  src="/images/folder.png" className='cursor-pointer w-40 h-40'/>
                                 {e.name}
-                                <img onClick={()=>handleDeleteFolder(e)} src="/images/trash.png" className='cursor-pointer invisible group-hover:visible bg-white absolute w-9 p-1 right-0 bottom-0'/>
+                                <img onClick={()=>handleDeleteFolder(e)} src="/images/trash.png" className='cursor-pointer invisible group-hover:visible hover:bg-gray-400 absolute w-9 p-1 right-0 bottom-0'/>
                             </span>
                         </div>
                     )
                 })
             }
-            <span onClick={showinput} className='flex flex-col items-center rounded-md m-2 py-2 w-40 h-44 justify-center outline-dashed cursor-pointer hover:bg-white/20'>
+            <span onClick={showinput} className='flex flex-col items-center rounded-md m-2 py-2 w-40 h-40 justify-center outline-dashed cursor-pointer hover:bg-white/20'>
                 <img src="/images/add.png" className='w-16'/>
                 New Folder
             </span>
