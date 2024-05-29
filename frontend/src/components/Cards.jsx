@@ -90,10 +90,10 @@ export default function Cards({dataarray, notesData, activePath, searchText, fil
 
     function colors(c){
         const color = {
-            'yellow':'#ffd744',
-            'green':'#71fc55',
-            'blue':'#406ef7',
-            'red':'#f94242'
+            'yellow':'#ffdb59',
+            'green':'#7cff62',
+            'blue':'#6189ff',
+            'red':'#ff5e5e'
         }
         return color[c];
     }
@@ -114,7 +114,7 @@ export default function Cards({dataarray, notesData, activePath, searchText, fil
                             <span className='font-bold text-xl'>{e.heading}</span>
                             <span className={`bg-white text-[${colors(e.color)}] p-1 h-8 rounded-sm`}>{String(e.tag.substring(0,30))+".."}</span>
                         </p>
-                        <p>{String(e.content.substring(0,120))+"...."}</p>
+                        <div>{e.content.substring(0,120)}</div>
                         <span className='self-end text-sm'>{e.date}</span>
                     </div>
                 )

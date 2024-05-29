@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import LeftComponent from '../components/LeftComponent';
 import moment from 'moment';
 import { useLocation, useNavigate } from 'react-router-dom';
+import JoditEditor from 'jodit-react';
 
 export default function NotesPage({notesData, setNotesData, bookData, setBookData}) {
-    const nagivate = useNavigate();
+    const navigate = useNavigate();
     const locate = useLocation();
 
     const today = moment();
 
     const [heading, setHeading] = useState(locate.state.notedata.heading);
     const [content, setContent] = useState(locate.state.notedata.content);
+    const [tag, setTag] = useState(locate.state.notedata.tag);
     const [color, setColor] = useState(locate.state.notedata.color);
 
     const [bgcolor, setBgColor] = useState(colors(locate.state.notedata.color));
@@ -22,7 +24,7 @@ export default function NotesPage({notesData, setNotesData, bookData, setBookDat
         "_id":locate.state.notedata._id.toString(),
         "heading":heading,
         "content":content,
-        "tag":locate.state.notedata.tag,
+        "tag":tag,
         "date":`${today.year()}-${today.month()+1}-${today.date()}`,
         "location":locate.state.notedata.location,
         "userID":locate.state.notedata.userID,
@@ -45,16 +47,16 @@ export default function NotesPage({notesData, setNotesData, bookData, setBookDat
     
     useEffect(()=>{
         if(!loggedIn && locate.state === null) {
-        nagivate('/login');
+        navigate('/login');
         }
     }, [locate.state, loggedIn]);
 
     function colors(c){
         const color = {
-            'yellow':'#ffd744',
-            'green':'#71fc55',
-            'blue':'#406ef7',
-            'red':'#f94242'
+            'yellow':'#ffdb59',
+            'green':'#7cff62',
+            'blue':'#6189ff',
+            'red':'#ff5e5e'
         }
         return color[c];
     }
@@ -62,19 +64,19 @@ export default function NotesPage({notesData, setNotesData, bookData, setBookDat
     const handleSaveNote = () => {
         updateNotes('active')
         alert("Note Saved");
-        nagivate('/dashboard');
+        navigate('/dashboard');
     }
 
     const handleDeleteNote = () => {
         updateNotes('trash')
         alert("Moved to trash");
-        navigate('/dashboard');
+        navigate('/bin');
     }
 
     const handleNoteArchive = () => {
         updateNotes('archive')
         alert("Note Archived");
-        navigate('/dashboard');
+        navigate('/archive');
     }
 
     return (
@@ -85,9 +87,10 @@ export default function NotesPage({notesData, setNotesData, bookData, setBookDat
                     <div className='flex text-3xl border-b-gray-200 border-b-2'>
                         <input value={heading} onChange={(e)=>setHeading(e.target.value)}  type="text" name='heading' className={`w-[92%] bg-[${bgcolor}] rounded-tl-lg p-2`}/>
                         <img onClick={handleNoteArchive} src="/images/archive.png" className={`cursor-pointer w-14 bg-[${bgcolor}] p-2`}/>
-                        <img onClick={handleDeleteNote} src="/images/trash-red.png" className={`cursor-pointer w-14 bg-[${bgcolor}] rounded-tr-lg p-2`}/>
+                        <img onClick={handleDeleteNote} src="/images/trash.png" className={`cursor-pointer w-14 bg-[${bgcolor}] rounded-tr-lg p-2`}/>
                     </div>
-                    <textarea value={content} onChange={(e)=>setContent(e.target.value)}  name="content" className={`w-full h-[75dvh] bg-[${bgcolor}] rounded-b-lg p-3 text-xl`}></textarea>
+                    <input type="text" name='tag' placeholder='Enter tag.....' className={`w-auto bg-[${bgcolor}] p-1`} onChange={(e)=>setTag(e.target.value)} value={tag}/>
+                    <JoditEditor value={content} onChange={(e)=>setContent(e)} name="content" className="w-full h-[75dvh] rounded-b-lg"/>
                     <div className='flex justify-between mt-5 items-center'>
                         <div className="flex space-x-2">
                             <div onClick={()=>{setBgColor(colors('green')); setColor('green');}} className='bg-green-500 h-6 w-6 rounded-full border-white border'/>

@@ -25,10 +25,10 @@ function App() {
   return (
     <div className="font-robotoslab">
       <div className="hidden">
-        <div className="bg-[#ffd744]"></div>
-        <div className="bg-[#71fc55]"></div>
-        <div className="bg-[#406ef7]"></div>
-        <div className="bg-[#f94242]"></div>
+        <div className="bg-[#ffdb59]"></div>
+        <div className="bg-[#7cff62]"></div>
+        <div className="bg-[#6189ff]"></div>
+        <div className="bg-[#ff5e5e]"></div>
       </div>
       <BrowserRouter>
         <Routes>
