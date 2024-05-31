@@ -25,8 +25,8 @@ export default function LoginPage({loginData}) {
           if (user.passw === passw) {
             alert("Login Successfull");
             localStorage.setItem('username', uname.toLowerCase());
-            localStorage.setItem('userID', user._id)
-            navigate("/dashboard", { state: {username: uname, _id:user._id} });
+            localStorage.setItem('userID', user.id)
+            navigate("/dashboard", { state: {username: uname, id:user.id} });
           } else {
             alert("Wrong Password");
           }

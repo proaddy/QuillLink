@@ -5,8 +5,8 @@ import { useState } from "react";
 export default function RegisterPage({loginData, setLoginData}) {
   const navigate = useNavigate();
   const [show, setShow] = useState("hide");
-  let _id = loginData.length+1;
-  // console.log(_id);
+  let id = loginData.length+1;
+  // console.log(id);
 
   // input
   const [uname, setUname] = useState('');
@@ -30,7 +30,7 @@ export default function RegisterPage({loginData, setLoginData}) {
           "uname":uname,
           "passw":passw,
           "email":email,
-          "_id": _id
+          "id": id
         }]);
         alert("User Registered!!!");
         navigate("/login");

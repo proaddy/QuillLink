@@ -4,9 +4,22 @@ import RightComponent from "../components/RightComponent"
 
 import React, { useState } from 'react';
 import { useEffect } from "react";
+import axios from "axios";
 
 export default function HomePage({bookData, setBookData, notesData, setNotesData, folderData, setFolderData}) {
   const nagivate = useNavigate();
+
+  axios.post("https://data-for-frontend.onrender.com/bookdata",{
+    "id":"7",
+    "name":"server-test-2",
+    "userID":"5"
+  }).then(function (response){
+    console.log(response);
+  }).catch(function (error){
+    console.log(error);
+  })
+
+  // axios.delete("https://data-for-frontend.onrender.com/bookdata/6").then(function (response){console.log(response)}).catch(function (error){console.log(error)});
 
   // console.log(notesData);
 

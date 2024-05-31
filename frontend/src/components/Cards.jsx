@@ -40,7 +40,7 @@ export default function Cards({dataarray, notesData, activePath, searchText, fil
         setShowValue(!showValue);
         if(newValue != ''){
             setNotesData([...notesData, {
-                "_id":length,
+                "id":length,
                 "heading": newValue,
                 "content":"",
                 "tag":"",
@@ -64,7 +64,7 @@ export default function Cards({dataarray, notesData, activePath, searchText, fil
 
     const updated = (id, heading, content, tag, location, userID, color, stat) => {
         let somedata = {
-        "_id":id.toString(),
+        "id":id.toString(),
         "heading":heading,
         "content":content,
         "tag":tag,
@@ -79,8 +79,8 @@ export default function Cards({dataarray, notesData, activePath, searchText, fil
 
     const unarchiveNotes = (element) => {
         let makingUpdate = notesData.map((e) => {
-            if(e._id === element._id){
-                return updated(element._id, element.heading, element.content, element.tag, element.location, element.userID, element.color, "active");
+            if(e.id === element.id){
+                return updated(element.id, element.heading, element.content, element.tag, element.location, element.userID, element.color, "active");
             }
             return e;
         });

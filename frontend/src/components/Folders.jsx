@@ -12,7 +12,7 @@ export default function Folders({activePath, setActivePath, breadCrumPath, setBr
         setShowValue(!showValue);
         if(newValue != ''){
             setFolderData([...folderData, {
-                "_id":length,
+                "id":length,
                 "name":newValue,
                 "location":activePath.toLowerCase(),
                 "userID":userid
@@ -26,7 +26,7 @@ export default function Folders({activePath, setActivePath, breadCrumPath, setBr
     }
 
     const handleDeleteFolder = (element)=>{
-        const newFolderList = folderData.filter(e=>e._id != element._id);
+        const newFolderList = folderData.filter(e=>e.id != element.id);
         setFolderData(newFolderList);
     }
 

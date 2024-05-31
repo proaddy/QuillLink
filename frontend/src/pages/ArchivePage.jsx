@@ -15,7 +15,7 @@ export default function ArchivePage({notesData, setNotesData, bookData, setBookD
 
     const userData = {
         "username":uname,
-        "_id":userid
+        "id":userid
     }
 
     const logout = () => {

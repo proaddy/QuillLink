@@ -21,7 +21,7 @@ export default function NotesPage({notesData, setNotesData, bookData, setBookDat
 
     const updated = (stat) => {
         let somedata = {
-        "_id":locate.state.notedata._id.toString(),
+        "id":locate.state.notedata.id.toString(),
         "heading":heading,
         "content":content,
         "tag":tag,
@@ -36,7 +36,7 @@ export default function NotesPage({notesData, setNotesData, bookData, setBookDat
 
     function updateNotes(stat) {
         let makingUpdate = notesData.map((e) => {
-            if(e._id === locate.state.notedata._id){
+            if(e.id === locate.state.notedata.id){
                 return updated(stat);
             }
             return e;

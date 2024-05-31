@@ -12,7 +12,7 @@ export default function LeftComponent({pageStat, bookStat, setBookStat, user, bo
     if (newValue.length != 0) {
       setBookData([...bookData, 
         {
-          "_id":length.toString(),
+          "id":length.toString(),
           "name":newValue, 
           "userID":user.toString()
         }]);
@@ -22,7 +22,7 @@ export default function LeftComponent({pageStat, bookStat, setBookStat, user, bo
   }
 
   const handleBookDelete = (element) => {
-    const temp = bookData.filter(e=>e._id != element._id);
+    const temp = bookData.filter(e=>e.id != element.id);
     setBookData(temp);
     setBookStat('');
   }
