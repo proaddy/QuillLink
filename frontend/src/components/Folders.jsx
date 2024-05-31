@@ -1,9 +1,11 @@
 // import folders from '../data/folderlist.json';
 import { useState } from 'react';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Folders({activePath, setActivePath, breadCrumPath, setBreadCrumPath, userid, folderData, setFolderData}) {
 
-    const length = folderData.length + 1;
+    const uniqueID = uuidv4();
     // inputs
     const [showValue, setShowValue] = useState(false);
     const [newValue, setNewValue] = useState('');
@@ -11,12 +13,15 @@ export default function Folders({activePath, setActivePath, breadCrumPath, setBr
     const handleAddFolder = ()=>{
         setShowValue(!showValue);
         if(newValue != ''){
-            setFolderData([...folderData, {
-                "id":length,
+            let data = {
+                "id":uniqueID,
                 "name":newValue,
                 "location":activePath.toLowerCase(),
-                "userID":userid
-            }])
+                "userID":userid.toString()
+            }
+            setFolderData([...folderData, data]);
+            console.log("book added");
+            axios.post("https://data-for-frontend.onrender.com/folderlist", data).then(function (response){console.log("Folder added")}).catch(function (error){console.log("Error in folder add", error)});
         }
         setNewValue('');
     }
@@ -27,6 +32,7 @@ export default function Folders({activePath, setActivePath, breadCrumPath, setBr
 
     const handleDeleteFolder = (element)=>{
         const newFolderList = folderData.filter(e=>e.id != element.id);
+        axios.delete(`https://data-for-frontend.onrender.com/folderlist/${element.id}`).then(function (response){console.log("Folder deleted")}).catch(function (error){console.log("Error in folder delete", error)});
         setFolderData(newFolderList);
     }
 

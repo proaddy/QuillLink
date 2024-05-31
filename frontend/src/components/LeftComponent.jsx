@@ -1,28 +1,31 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { v4 as uuidv4 } from 'uuid';
 
 export default function LeftComponent({pageStat, bookStat, setBookStat, user, bookData, setBookData}) {
   const [newValue, setNewValue] = useState('');
   const [takeInput,setTakeInput] = useState(false);
-  const length = bookData.length + 1;
+  const uniqueID = uuidv4();
 
   const handleInputData = ()=>{
     setTakeInput(!takeInput);
     if (newValue.length != 0) {
-      setBookData([...bookData, 
-        {
-          "id":length.toString(),
-          "name":newValue, 
-          "userID":user.toString()
-        }]);
-      console.log('New book created');
+      let data = {
+        "id":uniqueID,
+        "name":newValue, 
+        "userID":user.toString()
+      }
+      setBookData([...bookData, data]);
+      console.log("book added");
+      axios.post("https://data-for-frontend.onrender.com/bookdata", data).then(function (response){console.log("Book add")}).catch(function (error){console.log("Error to add book", error)});
     }
     setNewValue('');
   }
 
   const handleBookDelete = (element) => {
     const temp = bookData.filter(e=>e.id != element.id);
+    axios.delete(`https://data-for-frontend.onrender.com/bookdata/${element.id}`).then(function (response){console.log("Book delete")}).catch( function (error){console.log("Error to delete book"), error});
     setBookData(temp);
     setBookStat('');
   }

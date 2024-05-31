@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Cards({dataarray, notesData, activePath, searchText, filter, userid, page='home', setNotesData}) {
     const userFilter = dataarray.filter(e=>e.userID.toString() === userid);
-    const length = notesData.length + 1;
+    const uniqueID = uuidv4();
 
     const today = moment();
     const navigate = useNavigate();
@@ -39,8 +41,8 @@ export default function Cards({dataarray, notesData, activePath, searchText, fil
     const handleNotesAdd = ()=>{
         setShowValue(!showValue);
         if(newValue != ''){
-            setNotesData([...notesData, {
-                "id":length,
+            let data = {
+                "id":uniqueID,
                 "heading": newValue,
                 "content":"",
                 "tag":"",
@@ -49,7 +51,9 @@ export default function Cards({dataarray, notesData, activePath, searchText, fil
                 "userID":userid.toString(),
                 "status":"active",
                 "color":"yellow"
-            }]);
+            }
+            setNotesData([...notesData, data]);
+            axios.post("https://data-for-frontend.onrender.com/testdata",data).then(function (response){console.log("Card add")}).catch(function (error){console.log("Error in card add",error)});
         }
         setNewValue('');
     }
@@ -62,17 +66,17 @@ export default function Cards({dataarray, notesData, activePath, searchText, fil
         navigate("/editnote", {state: {notedata: e}});
     }
 
-    const updated = (id, heading, content, tag, location, userID, color, stat) => {
+    const updated = (prop, stat) => {
         let somedata = {
-        "id":id.toString(),
-        "heading":heading,
-        "content":content,
-        "tag":tag,
+        "id":prop.id.toString(),
+        "heading":prop.heading,
+        "content":prop.content,
+        "tag":prop.tag,
         "date":`${today.year()}-${today.month()+1}-${today.date()}`,
-        "location":location,
-        "userID":userID,
+        "location":prop.location,
+        "userID":prop.userID,
         "status":stat,
-        "color":color
+        "color":prop.color
         }
         return somedata;
     }
@@ -80,7 +84,9 @@ export default function Cards({dataarray, notesData, activePath, searchText, fil
     const unarchiveNotes = (element) => {
         let makingUpdate = notesData.map((e) => {
             if(e.id === element.id){
-                return updated(element.id, element.heading, element.content, element.tag, element.location, element.userID, element.color, "active");
+                console.log("unarchive");
+                axios.patch(`https://data-for-frontend.onrender.com/testdata/${element.id}`, {"status":"active"}).then(function (response){console.log("card updated")}).catch(function (error){"Error in card update", error})
+                return updated(element, "active");
             }
             return e;
         });

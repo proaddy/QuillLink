@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cards from "../components/Cards";
 import LeftComponent from "../components/LeftComponent";
 
@@ -7,6 +8,13 @@ export default function TrashPage({notesData, setNotesData, bookData, setBookDat
     // console.log(dataarray);
 
     const trashNotes = (() => {
+        dataarray.forEach(element => {
+            // console.log(element);
+            if(element.userID === userid){
+                axios.delete(`https://data-for-frontend.onrender.com/testdata/${element.id}`).then(function (response){console.log(response)}).catch(function (error){console.log(error)});
+                // console.log(element.id);
+            }
+        });
         const temp = notesData.filter(e=>e.status !== 'trash');
         setNotesData(temp);
     })

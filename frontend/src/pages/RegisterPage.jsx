@@ -1,11 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import { useState } from "react";
+import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function RegisterPage({loginData, setLoginData}) {
   const navigate = useNavigate();
   const [show, setShow] = useState("hide");
-  let id = loginData.length+1;
+  let uniqueID = uuidv4();
+  // console.log(uniqueID, typeof(uniqueID));
   // console.log(id);
 
   // input
@@ -26,12 +29,14 @@ export default function RegisterPage({loginData, setLoginData}) {
       if (!user) {
         // const payload = Object.fromEntries(new FormData(e.target));
         // console.log(payload);
-        setLoginData([...loginData, {
+        let data = {
           "uname":uname,
           "passw":passw,
           "email":email,
-          "id": id
-        }]);
+          "id": uniqueID
+        }
+        setLoginData([...loginData, data]);
+        axios.post("https://data-for-frontend.onrender.com/logindata", data).then(function (response){console.log("user added")}).catch(function (error){console.log("Error in user add")});
         alert("User Registered!!!");
         navigate("/login");
       } else {

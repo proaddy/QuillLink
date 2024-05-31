@@ -3,6 +3,7 @@ import LeftComponent from '../components/LeftComponent';
 import moment from 'moment';
 import { useLocation, useNavigate } from 'react-router-dom';
 import JoditEditor from 'jodit-react';
+import axios from 'axios';
 
 export default function NotesPage({notesData, setNotesData, bookData, setBookData}) {
     const navigate = useNavigate();
@@ -31,6 +32,14 @@ export default function NotesPage({notesData, setNotesData, bookData, setBookDat
         "status":stat,
         "color":color
         }
+        axios.patch(`https://data-for-frontend.onrender.com/testdata/${locate.state.notedata.id.toString()}`, {
+            "heading":heading,
+            "content":content,
+            "tag":tag,
+            "date":`${today.year()}-${today.month()+1}-${today.date()}`,
+            "status":stat,
+            "color":color
+        })
         return somedata;
     }
 
